@@ -1,0 +1,179 @@
+@import 'tailwindcss';
+
+@variant dark (&:where([data-theme=dark],[data-theme=dark] *));
+
+@theme inline {
+  --font-sans: 'Segoe UI Variable Text', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  --font-display: Georgia, 'Times New Roman', ui-serif, serif;
+
+  --color-bg:           var(--bg);
+  --color-card:         var(--card);
+  --color-elevated:     var(--elevated);
+  --color-primary:      var(--primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-muted:        var(--muted);
+  --color-muted-fg:     var(--muted-fg);
+  --color-border:       var(--border-color);
+  --color-fg:           var(--fg);
+  --color-fg-soft:      var(--fg-soft);
+  --color-success:      var(--success);
+  --color-warning:      var(--warning);
+  --color-danger:       var(--danger);
+}
+
+/* Academic Ledger — warm ivory and classic emerald */
+:root {
+  --bg:           #F7F4ED;
+  --card:         #FFFDF8;
+  --elevated:     #FFFFFF;
+  --primary:      #0D5C48;
+  --primary-soft: #E7F0EB;
+  --muted:        #F0EEE7;
+  --muted-fg:     #77756E;
+  --border-color: #DDD9CF;
+  --fg:           #171813;
+  --fg-soft:      #55584F;
+  --success:      #16A979;
+  --warning:      #D69A16;
+  --danger:       #E25454;
+  color-scheme: light;
+}
+
+/* Dark mode — blackened olive with bright jade focus states */
+[data-theme='dark'] {
+  --bg:           #100F0B;
+  --card:         #181813;
+  --elevated:     #211F19;
+  --primary:      #4FE0A8;
+  --primary-soft: #113127;
+  --muted:        #22211B;
+  --muted-fg:     #999589;
+  --border-color: #3B3930;
+  --fg:           #F5F0E4;
+  --fg-soft:      #C2BCAE;
+  --success:      #4FE0A8;
+  --warning:      #F0B431;
+  --danger:       #FF716B;
+  color-scheme: dark;
+}
+
+/* ── Base ────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  /* Prevent Android WebView from auto-resizing text */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Use dynamic viewport height so Android Chrome address bar is accounted for */
+  height: 100%;
+}
+
+body {
+  margin: 0; padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Segoe UI Variable Text', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  /* Smooth momentum scrolling on Android */
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  height: 100%;
+}
+
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* Prevent mobile input zoom — iOS Safari and some Android WebViews zoom in
+   when the focused input's font-size is below 16px. !important is intentional
+   here: we need this to override any Tailwind text-sm/text-xs on the element. */
+input, select, textarea {
+  font-size: 16px !important;
+  font-family: inherit;
+}
+
+/* Editorial serif is reserved for page and section hierarchy. */
+.font-display { font-family: Georgia, 'Times New Roman', ui-serif, serif !important; }
+
+/* Tight tracking for large numerals */
+.num-tight { font-variant-numeric: tabular-nums; letter-spacing: -0.04em; }
+
+/* Section label style — editorial, uppercase micro */
+.label-micro {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Tap highlight off */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Safe area — requires viewport-fit=cover in <meta viewport> */
+.safe-top    { padding-top:    max(3rem, env(safe-area-inset-top));    }
+.safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 12px); }
+
+/* ── Animations ──────────────────────────────── */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+@keyframes slideUp  { from { opacity:0; transform:translateY(48px) } to { opacity:1; transform:translateY(0) } }
+@keyframes scaleIn  { from { opacity:0; transform:scale(0.94)      } to { opacity:1; transform:scale(1)    } }
+@keyframes bounceIn {
+  0%   { opacity:0; transform:scale(0.4) }
+  55%  { transform:scale(1.08) }
+  75%  { transform:scale(0.96) }
+  100% { opacity:1; transform:scale(1) }
+}
+@keyframes pulse-ring {
+  0%   { transform:scale(1);   opacity:0.8 }
+  100% { transform:scale(1.6); opacity:0   }
+}
+
+.anim-fadeUp   { animation: fadeUp   0.3s cubic-bezier(0.16,1,0.3,1) forwards }
+.anim-slideUp  { animation: slideUp  0.38s cubic-bezier(0.16,1,0.3,1) forwards }
+.anim-scaleIn  { animation: scaleIn  0.25s cubic-bezier(0.16,1,0.3,1) forwards }
+.anim-bounceIn { animation: bounceIn 0.5s  cubic-bezier(0.175,0.885,0.32,1.275) forwards }
+
+/* Light mode card shadow */
+:root .card-shadow  { box-shadow: 0 4px 18px rgba(43,38,26,0.045), 0 1px 2px rgba(43,38,26,0.05); }
+[data-theme='dark'] .card-shadow  { box-shadow: inset 0 1px rgba(255,255,255,0.015); }
+
+/* Shared Academic Ledger surfaces. Keeping these global makes legacy screens
+   inherit the selected design without changing their data or behaviour. */
+.rounded-2xl { border-radius: 0.8rem; }
+.rounded-3xl { border-radius: 1rem; }
+button { font-family: inherit; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--primary) 72%, transparent);
+  outline-offset: 2px;
+}
+
+.ledger-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border-color) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border-color) 18%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.ledger-card {
+  background: var(--card);
+  border: 1px solid var(--border-color);
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 18px rgba(43,38,26,0.045);
+}
+
+[data-theme='dark'] .ledger-card {
+  background: color-mix(in srgb, var(--card) 94%, var(--primary) 6%);
+  box-shadow: inset 0 1px rgba(255,255,255,0.018);
+}
+
+.ledger-rule { border-color: color-mix(in srgb, var(--border-color) 84%, transparent); }
+.ledger-title { font-family: Georgia, 'Times New Roman', ui-serif, serif; letter-spacing: -0.035em; }
+
+/* Smooth theme transition */
+html { transition: background-color 0.2s ease; }
