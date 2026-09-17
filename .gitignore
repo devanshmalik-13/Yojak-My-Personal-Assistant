@@ -1,0 +1,33 @@
+node_modules/
+dist/
+build/
+.cache/
+.env*
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
+*.log
+.claude-replay.*
+.tmp-*
+
+# Local tooling and generated artifacts
+tmp/
+releases/
+/*.png
+/*.xml
+
+# Android generated files and machine-specific secrets
+android/.gradle/
+android/**/build/
+android/local.properties
+android/release-signing.properties
+android/keystore/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+*.apk
+*.aab
+*.jks
+*.keystore

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws://localhost:* ws://127.0.0.1:*; media-src 'self' blob:; frame-src 'none'; form-action 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="description"
+      content="A personal assistant for college students to manage attendance, assignments, competitions, reminders, and expenses."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#F7F4ED" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#100F0B" media="(prefers-color-scheme: dark)" />
+    <title>My Personal Assistant</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
