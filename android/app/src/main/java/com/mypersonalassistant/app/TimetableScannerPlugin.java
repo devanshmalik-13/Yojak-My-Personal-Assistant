@@ -39,6 +39,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @CapacitorPlugin(name = "TimetableScanner")
 public class TimetableScannerPlugin extends Plugin {
@@ -49,15 +51,26 @@ public class TimetableScannerPlugin extends Plugin {
     // target at the same aspect ratio, which materially helps small timetable text.
     private static final int OCR_TARGET_DIMENSION = 3600;
     private static final long OCR_MAX_PIXELS = 9_000_000L;
+    private static final int MAX_DETAILED_OCR_REGIONS = 256;
+    private static final int DETAILED_REGION_TARGET = 1400;
+    /**
+     * Bitmap restoration, grid projections and dozens of cell OCR passes are
+     * intentionally serialized away from Android's main thread.  Running the
+     * same work from ML Kit's default completion callback caused the OS to
+     * report an ANR on dense timetables even though recognition was progressing.
+     */
+    private final ExecutorService ocrExecutor = Executors.newSingleThreadExecutor();
 
     @PluginMethod
     public void recognizeImage(PluginCall call) {
-        recognizeDocumentData(call, call.getString("imageData"));
+        String data = call.getString("imageData");
+        ocrExecutor.execute(() -> recognizeDocumentData(call, data));
     }
 
     @PluginMethod
     public void recognizeDocument(PluginCall call) {
-        recognizeDocumentData(call, call.getString("documentData"));
+        String data = call.getString("documentData");
+        ocrExecutor.execute(() -> recognizeDocumentData(call, data));
     }
 
     @PluginMethod
@@ -79,16 +92,18 @@ public class TimetableScannerPlugin extends Plugin {
             call.reject(scannerError != null ? scannerError : "The cleaned timetable image could not be read.", "SCAN_FAILED");
             return;
         }
-        try (InputStream input = getContext().getContentResolver().openInputStream(android.net.Uri.parse(imageUri));
-             ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-            if (input == null) throw new IOException("Scanner returned no image data");
-            byte[] buffer = new byte[16 * 1024];
-            int count;
-            while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
-            recognizeBitmapBytes(call, output.toByteArray());
-        } catch (Exception error) {
-            call.reject("The cleaned timetable image could not be read.", "SCAN_FAILED", error);
-        }
+        ocrExecutor.execute(() -> {
+            try (InputStream input = getContext().getContentResolver().openInputStream(android.net.Uri.parse(imageUri));
+                 ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+                if (input == null) throw new IOException("Scanner returned no image data");
+                byte[] buffer = new byte[16 * 1024];
+                int count;
+                while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+                recognizeBitmapBytes(call, output.toByteArray());
+            } catch (Exception error) {
+                call.reject("The cleaned timetable image could not be read.", "SCAN_FAILED", error);
+            }
+        });
     }
 
     private void recognizeDocumentData(PluginCall call, String data) {
@@ -329,14 +344,13 @@ public class TimetableScannerPlugin extends Plugin {
         final int scanWidth = scannedBitmap.getWidth();
         final int scanHeight = scannedBitmap.getHeight();
         TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
-        recognizer.process(InputImage.fromBitmap(scannedBitmap, 0)).addOnCompleteListener(originalTask ->
-            recognizer.process(InputImage.fromBitmap(enhancedBitmap, 0)).addOnCompleteListener(enhancedTask -> {
+        recognizer.process(InputImage.fromBitmap(scannedBitmap, 0)).addOnCompleteListener(ocrExecutor, originalTask ->
+            recognizer.process(InputImage.fromBitmap(enhancedBitmap, 0)).addOnCompleteListener(ocrExecutor, enhancedTask -> {
                 if (scannedBitmap != enhancedBitmap && !scannedBitmap.isRecycled()) scannedBitmap.recycle();
                 final Bitmap deblurredBitmap = deblurForOcr(enhancedBitmap);
-                recognizer.process(InputImage.fromBitmap(deblurredBitmap, 0)).addOnCompleteListener(deblurredTask -> {
-                    if (!enhancedBitmap.isRecycled()) enhancedBitmap.recycle();
+                recognizer.process(InputImage.fromBitmap(deblurredBitmap, 0)).addOnCompleteListener(ocrExecutor, deblurredTask -> {
                     final Bitmap binaryBitmap = binarizeForOcr(deblurredBitmap);
-                    recognizer.process(InputImage.fromBitmap(binaryBitmap, 0)).addOnCompleteListener(binaryTask -> {
+                    recognizer.process(InputImage.fromBitmap(binaryBitmap, 0)).addOnCompleteListener(ocrExecutor, binaryTask -> {
                         Text best = null;
                         String mode = "originalImage";
                         int bestScore = Integer.MIN_VALUE;
@@ -363,25 +377,34 @@ public class TimetableScannerPlugin extends Plugin {
                                 : deblurredTask.getException() != null ? deblurredTask.getException()
                                 : enhancedTask.getException() != null ? enhancedTask.getException() : originalTask.getException();
                             call.reject("Text recognition failed. Try a clearer image or the original PDF.", "OCR_FAILED", error);
+                            recycleOcrBitmaps(enhancedBitmap, deblurredBitmap, binaryBitmap);
+                            recognizer.close();
                         } else {
                             List<Text> successfulResults = new ArrayList<>();
                             if (originalTask.isSuccessful()) successfulResults.add(originalTask.getResult());
                             if (enhancedTask.isSuccessful()) successfulResults.add(enhancedTask.getResult());
                             if (deblurredTask.isSuccessful()) successfulResults.add(deblurredTask.getResult());
                             if (binaryTask.isSuccessful()) successfulResults.add(binaryTask.getResult());
-                            resolveOcr(call, best, successfulResults, scanWidth, scanHeight, sourceType, pageCount, pageIndex, previewDataUrl,
-                                successfulResults.size() > 1 ? "mergedImage" : mode);
+                            final Text selectedResult = best;
+                            final String selectedMode = mode;
+                            recognizeDetailedRegions(recognizer, enhancedBitmap, binaryBitmap, detailed -> {
+                                resolveOcr(call, selectedResult, successfulResults, detailed, scanWidth, scanHeight, sourceType, pageCount, pageIndex, previewDataUrl,
+                                    detailed.elements.isEmpty() ? (successfulResults.size() > 1 ? "mergedImage" : selectedMode) : "regionConsensus");
+                                recycleOcrBitmaps(enhancedBitmap, deblurredBitmap, binaryBitmap);
+                                recognizer.close();
+                            });
                         }
-                        if (!binaryBitmap.isRecycled()) binaryBitmap.recycle();
-                        if (!deblurredBitmap.isRecycled()) deblurredBitmap.recycle();
-                        recognizer.close();
                     });
                 });
             })
         );
     }
 
-    private void resolveOcr(PluginCall call, Text result, List<Text> successfulResults, int width, int height, String sourceType, int pageCount, int pageIndex, String previewDataUrl, String extractionMode) {
+    private void recycleOcrBitmaps(Bitmap... bitmaps) {
+        for (Bitmap bitmap : bitmaps) if (bitmap != null && !bitmap.isRecycled()) bitmap.recycle();
+    }
+
+    private void resolveOcr(PluginCall call, Text result, List<Text> successfulResults, DetailedOcrCandidates detailed, int width, int height, String sourceType, int pageCount, int pageIndex, String previewDataUrl, String extractionMode) {
         JSObject response = new JSObject();
         response.put("width", width);
         response.put("height", height);
@@ -391,12 +414,21 @@ public class TimetableScannerPlugin extends Plugin {
         response.put("pageIndex", pageIndex);
         response.put("extractionMode", extractionMode);
         if (previewDataUrl != null) response.put("previewDataUrl", previewDataUrl);
-        response.put("lines", mergeOcrBoxes(successfulResults, true));
-        response.put("elements", mergeOcrBoxes(successfulResults, false));
+        response.put("lines", mergeOcrBoxes(successfulResults, detailed.lines, true));
+        response.put("elements", mergeOcrBoxes(successfulResults, detailed.elements, false));
+        response.put("gridVerticalLines", integerArray(detailed.gridVerticalLines));
+        response.put("gridHorizontalLines", integerArray(detailed.gridHorizontalLines));
+        response.put("gridCells", detailed.gridCells);
         call.resolve(response);
     }
 
-    private JSArray mergeOcrBoxes(List<Text> results, boolean linesOnly) {
+    private JSArray integerArray(List<Integer> values) {
+        JSArray array = new JSArray();
+        for (Integer value : values) array.put(value);
+        return array;
+    }
+
+    private JSArray mergeOcrBoxes(List<Text> results, List<OcrCandidate> detailed, boolean linesOnly) {
         List<OcrCandidate> merged = new ArrayList<>();
         for (Text result : results) {
             for (Text.TextBlock block : result.getTextBlocks()) {
@@ -408,6 +440,7 @@ public class TimetableScannerPlugin extends Plugin {
                 }
             }
         }
+        for (OcrCandidate candidate : detailed) addOcrCandidate(merged, candidate.text, candidate.bounds);
         merged.sort(Comparator.comparingInt((OcrCandidate item) -> item.bounds.top).thenComparingInt(item -> item.bounds.left));
         JSArray boxes = new JSArray();
         for (OcrCandidate candidate : merged) {
@@ -415,6 +448,270 @@ public class TimetableScannerPlugin extends Plugin {
             if (object != null) boxes.put(object);
         }
         return boxes;
+    }
+
+    /**
+     * Dense timetables are a pathological input for page-level OCR: text that
+     * is perfectly legible to a person can occupy only a few pixels after the
+     * full grid is fitted into the recognizer. Re-reading overlapping tiles
+     * and detected cells at a much larger effective scale recovers that text.
+     * Results are mapped back to page coordinates and de-duplicated with the
+     * four full-page recognition passes.
+     */
+    private void recognizeDetailedRegions(TextRecognizer recognizer, Bitmap restored, Bitmap binary, DetailedOcrCallback callback) {
+        DetailedOcrCandidates candidates = new DetailedOcrCandidates();
+        List<OcrRegion> regions = buildDetailedRegions(binary, candidates);
+        recognizeDetailedRegion(recognizer, restored, binary, regions, 0, candidates, callback);
+    }
+
+    private List<OcrRegion> buildDetailedRegions(Bitmap binary, DetailedOcrCandidates candidates) {
+        int width = binary.getWidth(), height = binary.getHeight();
+        List<OcrRegion> regions = new ArrayList<>();
+
+        // Overlapping page tiles make the pipeline robust even when grid lines
+        // are faint, broken, coloured, or absent entirely.
+        int columns = width >= height ? 4 : 3;
+        int rows = width >= height ? 2 : 3;
+        int overlapX = Math.max(8, width / 40);
+        int overlapY = Math.max(8, height / 36);
+        for (int row = 0; row < rows; row++) {
+            int nominalTop = row * height / rows;
+            int nominalBottom = (row + 1) * height / rows;
+            for (int column = 0; column < columns; column++) {
+                int nominalLeft = column * width / columns;
+                int nominalRight = (column + 1) * width / columns;
+                Rect bounds = new Rect(
+                    Math.max(0, nominalLeft - overlapX), Math.max(0, nominalTop - overlapY),
+                    Math.min(width, nominalRight + overlapX), Math.min(height, nominalBottom + overlapY)
+                );
+                regions.add(new OcrRegion(bounds, false, 1.8f));
+                regions.add(new OcrRegion(new Rect(bounds), true, 1.8f));
+            }
+        }
+
+        // When the table rules are visible, every cell gets its own enlarged
+        // OCR pass. This is the main protection against isolated missed periods.
+        int[] pixels = new int[width * height];
+        binary.getPixels(pixels, 0, width, 0, 0, width, height);
+        List<Integer> vertical = projectionLines(pixels, width, height, true);
+        List<Integer> horizontal = projectionLines(pixels, width, height, false);
+        recoverMissingOuterBoundary(vertical, width);
+        recoverMissingOuterBoundary(horizontal, height);
+        if (vertical.size() >= 3 && vertical.size() <= 40 && horizontal.size() >= 3 && horizontal.size() <= 80) {
+            candidates.gridVerticalLines.addAll(vertical);
+            candidates.gridHorizontalLines.addAll(horizontal);
+            // Retain empty cells, and join elementary cells only where their
+            // shared rule is absent. OCR text width is not a merge boundary.
+            int cols = vertical.size() - 1, rowsCount = horizontal.size() - 1;
+            int[] parents = new int[cols * rowsCount];
+            for (int i = 0; i < parents.length; i++) parents[i] = i;
+            for (int row = 0; row < rowsCount; row++) for (int col = 0; col < cols; col++) {
+                int id = row * cols + col;
+                if (col + 1 < cols && !hasRule(pixels, width, height, vertical.get(col + 1), horizontal.get(row), horizontal.get(row + 1), true)) {
+                    parents[root(parents, id + 1)] = root(parents, id);
+                }
+                if (row + 1 < rowsCount && !hasRule(pixels, width, height, horizontal.get(row + 1), vertical.get(col), vertical.get(col + 1), false)) {
+                    parents[root(parents, id + cols)] = root(parents, id);
+                }
+            }
+            java.util.Map<Integer, Rect> cells = new java.util.LinkedHashMap<>();
+            java.util.Map<Integer, Integer> counts = new java.util.HashMap<>();
+            for (int row = 0; row < rowsCount; row++) for (int col = 0; col < cols; col++) {
+                int id = root(parents, row * cols + col);
+                Rect part = new Rect(vertical.get(col), horizontal.get(row), vertical.get(col + 1), horizontal.get(row + 1));
+                Rect existing = cells.get(id);
+                if (existing == null) cells.put(id, part); else existing.union(part);
+                counts.put(id, counts.getOrDefault(id, 0) + 1);
+            }
+            for (java.util.Map.Entry<Integer, Rect> entry : cells.entrySet()) {
+                Rect cell = entry.getValue();
+                int colSpan = vertical.indexOf(cell.right) - vertical.indexOf(cell.left);
+                int rowSpan = horizontal.indexOf(cell.bottom) - horizontal.indexOf(cell.top);
+                // An L-shaped component means a broken rule; do not silently
+                // turn it into a rectangular class covering unrelated cells.
+                if (counts.get(entry.getKey()) != colSpan * rowSpan) continue;
+                JSObject object = boxObject("", cell);
+                if (object == null) { object = new JSObject(); object.put("left",cell.left); object.put("top",cell.top); object.put("right",cell.right); object.put("bottom",cell.bottom); }
+                object.put("text", "");
+                object.put("lines", new JSArray());
+                boolean ink = hasCellContent(pixels, width, height, cell);
+                object.put("hasInk", ink);
+                candidates.gridCells.put(object);
+                if (ink && regions.size() < MAX_DETAILED_OCR_REGIONS) {
+                    Rect crop = new Rect(cell);
+                    int inset = Math.max(2, Math.min(width, height) / 450);
+                    if (crop.width() > inset * 4 && crop.height() > inset * 4) crop.inset(inset, inset);
+                    OcrRegion region = new OcrRegion(crop, false, 2f);
+                    region.cell = object;
+                    regions.add(region);
+                }
+            }
+        }
+        return regions;
+    }
+
+    private int root(int[] parents, int id) {
+        while (parents[id] != id) { parents[id] = parents[parents[id]]; id = parents[id]; }
+        return id;
+    }
+
+    private boolean hasRule(int[] pixels, int width, int height, int axis, int start, int end, boolean vertical) {
+        int inset = Math.max(3, (end - start) / 12), dark = 0, total = 0;
+        int radius = Math.max(2, Math.min(width, height) / 500);
+        for (int other = start + inset; other < end - inset; other++) {
+            boolean hit = false;
+            for (int offset = -radius; offset <= radius; offset++) {
+                int x = vertical ? axis + offset : other, y = vertical ? other : axis + offset;
+                if (x >= 0 && x < width && y >= 0 && y < height && luminance(pixels[y * width + x]) < 96) { hit = true; break; }
+            }
+            total++;
+            if (hit) dark++;
+        }
+        return total > 0 && dark >= total * 0.7;
+    }
+
+    private List<Integer> projectionLines(int[] pixels, int width, int height, boolean vertical) {
+        int length = vertical ? width : height;
+        int cross = vertical ? height : width;
+        int threshold = Math.max(1, Math.round(cross * 0.34f));
+        List<Integer> centers = new ArrayList<>();
+        int runStart = -1;
+        for (int axis = 0; axis < length; axis++) {
+            int dark = 0;
+            for (int other = 0; other < cross; other++) {
+                int index = vertical ? other * width + axis : axis * width + other;
+                if (luminance(pixels[index]) < 96) dark++;
+            }
+            boolean line = dark >= threshold;
+            if (line && runStart < 0) runStart = axis;
+            if ((!line || axis == length - 1) && runStart >= 0) {
+                int runEnd = line && axis == length - 1 ? axis : axis - 1;
+                int center = (runStart + runEnd) / 2;
+                int minimumGap = Math.max(5, length / 100);
+                if (centers.isEmpty() || center - centers.get(centers.size() - 1) >= minimumGap) centers.add(center);
+                runStart = -1;
+            }
+        }
+        return centers;
+    }
+
+    /** Phone screenshots and tightly cropped photos often cut away exactly
+     * one outside table rule. The repeated internal spacing tells us where
+     * that boundary was; restoring it keeps the weekday/header cells in the
+     * same physical grid instead of silently falling back to loose OCR. */
+    private void recoverMissingOuterBoundary(List<Integer> lines, int dimension) {
+        if (lines.size() < 3) return;
+        List<Integer> gaps = new ArrayList<>();
+        for (int index = 1; index < lines.size(); index++) {
+            int gap = lines.get(index) - lines.get(index - 1);
+            if (gap > Math.max(4, dimension / 160)) gaps.add(gap);
+        }
+        if (gaps.size() < 2) return;
+        gaps.sort(Integer::compareTo);
+        int typical = gaps.get(gaps.size() / 2);
+        int first = lines.get(0), trailing = dimension - 1 - lines.get(lines.size() - 1);
+        if (first > typical * 0.45f && first < typical * 1.35f) {
+            int inferred = Math.max(0, first - typical);
+            if (first - inferred > Math.max(4, dimension / 160)) lines.add(0, inferred);
+        }
+        if (trailing > typical * 0.45f && trailing < typical * 1.35f) {
+            int inferred = Math.min(dimension - 1, lines.get(lines.size() - 1) + typical);
+            if (inferred - lines.get(lines.size() - 1) > Math.max(4, dimension / 160)) lines.add(inferred);
+        }
+    }
+
+    private boolean hasCellContent(int[] pixels, int width, int height, Rect cell) {
+        int insetX = Math.max(2, cell.width() / 30), insetY = Math.max(2, cell.height() / 18);
+        int left = Math.min(cell.right, cell.left + insetX), right = Math.max(left, cell.right - insetX);
+        int top = Math.min(cell.bottom, cell.top + insetY), bottom = Math.max(top, cell.bottom - insetY);
+        int dark = 0, samples = 0;
+        int step = Math.max(1, Math.min(cell.width(), cell.height()) / 100);
+        for (int y = top; y < bottom; y += step) for (int x = left; x < right; x += step) {
+            samples++;
+            if (luminance(pixels[y * width + x]) < 128) dark++;
+        }
+        return samples > 0 && dark >= Math.max(2, Math.round(samples * 0.0035f));
+    }
+
+    private void recognizeDetailedRegion(TextRecognizer recognizer, Bitmap restored, Bitmap binary, List<OcrRegion> regions,
+                                           int index, DetailedOcrCandidates candidates, DetailedOcrCallback callback) {
+        if (index >= regions.size()) {
+            callback.onComplete(candidates);
+            return;
+        }
+        OcrRegion region = regions.get(index);
+        Bitmap source = region.useBinary ? binary : restored;
+        Bitmap crop;
+        try {
+            crop = Bitmap.createBitmap(source, region.bounds.left, region.bounds.top, region.bounds.width(), region.bounds.height());
+        } catch (Exception ignored) {
+            recognizeDetailedRegion(recognizer, restored, binary, regions, index + 1, candidates, callback);
+            return;
+        }
+        float maximumScale = (float) DETAILED_REGION_TARGET / Math.max(crop.getWidth(), crop.getHeight());
+        float requestedScale = Math.max(1f, Math.min(region.preferredScale, maximumScale));
+        final float scale = requestedScale > 1.05f ? requestedScale : 1f;
+        Bitmap input = scale > 1.05f
+            ? Bitmap.createScaledBitmap(crop, Math.max(1, Math.round(crop.getWidth() * scale)), Math.max(1, Math.round(crop.getHeight() * scale)), true)
+            : crop;
+        recognizer.process(InputImage.fromBitmap(input, 0)).addOnCompleteListener(ocrExecutor, task -> {
+            if (task.isSuccessful()) {
+                collectMappedCandidates(task.getResult(), region.bounds, scale, candidates);
+                if (region.cell != null) {
+                    region.cell.put("text", task.getResult().getText());
+                    JSArray cellLines = new JSArray();
+                    for (Text.TextBlock block : task.getResult().getTextBlocks()) for (Text.Line line : block.getLines()) {
+                        JSObject mapped = boxObject(line.getText(), mapRegionBounds(line.getBoundingBox(), region.bounds, scale));
+                        if (mapped != null) cellLines.put(mapped);
+                    }
+                    region.cell.put("lines", cellLines);
+                }
+            }
+            if (input != crop && !input.isRecycled()) input.recycle();
+            if (!crop.isRecycled()) crop.recycle();
+            recognizeDetailedRegion(recognizer, restored, binary, regions, index + 1, candidates, callback);
+        });
+    }
+
+    private void collectMappedCandidates(Text result, Rect region, float scale, DetailedOcrCandidates candidates) {
+        for (Text.TextBlock block : result.getTextBlocks()) for (Text.Line line : block.getLines()) {
+            Rect mappedLine = mapRegionBounds(line.getBoundingBox(), region, scale);
+            if (mappedLine != null) addOcrCandidate(candidates.lines, line.getText(), mappedLine);
+            for (Text.Element element : line.getElements()) {
+                Rect mappedElement = mapRegionBounds(element.getBoundingBox(), region, scale);
+                if (mappedElement != null) addOcrCandidate(candidates.elements, element.getText(), mappedElement);
+            }
+        }
+    }
+
+    private Rect mapRegionBounds(Rect local, Rect region, float scale) {
+        if (local == null) return null;
+        return new Rect(
+            region.left + Math.round(local.left / scale), region.top + Math.round(local.top / scale),
+            region.left + Math.round(local.right / scale), region.top + Math.round(local.bottom / scale)
+        );
+    }
+
+    private interface DetailedOcrCallback { void onComplete(DetailedOcrCandidates candidates); }
+
+    private static class DetailedOcrCandidates {
+        final List<OcrCandidate> lines = new ArrayList<>();
+        final List<OcrCandidate> elements = new ArrayList<>();
+        final List<Integer> gridVerticalLines = new ArrayList<>();
+        final List<Integer> gridHorizontalLines = new ArrayList<>();
+        final JSArray gridCells = new JSArray();
+    }
+
+    private static class OcrRegion {
+        final Rect bounds;
+        final boolean useBinary;
+        final float preferredScale;
+        JSObject cell;
+        OcrRegion(Rect bounds, boolean useBinary, float preferredScale) {
+            this.bounds = bounds;
+            this.useBinary = useBinary;
+            this.preferredScale = preferredScale;
+        }
     }
 
     private void addOcrCandidate(List<OcrCandidate> merged, String text, Rect bounds) {

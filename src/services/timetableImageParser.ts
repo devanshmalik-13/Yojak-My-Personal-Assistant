@@ -1,4 +1,5 @@
 import type { Subject, TimetableSlot } from '../types'
+import { constructGridDays } from './timetableGridConstructor'
 
 export interface OcrBox {
   text: string
@@ -18,7 +19,10 @@ export interface TimetableOcrResult {
   pageCount?: number
   pageIndex?: number
   previewDataUrl?: string
-  extractionMode?: 'embeddedText' | 'originalImage' | 'enhancedImage' | 'deblurredImage' | 'binaryImage' | 'mergedImage'
+  extractionMode?: 'embeddedText' | 'originalImage' | 'enhancedImage' | 'deblurredImage' | 'binaryImage' | 'mergedImage' | 'regionConsensus'
+  gridVerticalLines?: number[]
+  gridHorizontalLines?: number[]
+  gridCells?: (OcrBox & { lines?: OcrBox[]; hasInk?: boolean })[]
 }
 
 export interface TimetableImageImport {
@@ -28,6 +32,7 @@ export interface TimetableImageImport {
   confidence: 'high' | 'medium' | 'low'
   warnings: string[]
   labGroups: TimetableLabGroupChoice[]
+  groupCount?: number
 }
 
 export interface TimetableLabOption {
@@ -42,7 +47,7 @@ export interface TimetableLabGroupChoice {
   period: number
   startTime: string
   endTime: string
-  options: TimetableLabOption[]
+  options: (TimetableLabOption | null)[]
 }
 
 const DAYS = [
@@ -90,12 +95,19 @@ function findDay(value: string) {
   const normalized = normalizeBlurredText(clean(value))
   return DAYS.find(day => day.aliases.some(alias =>
     normalized === alias || (alias.length >= 5 && normalized === alias.slice(1)) ||
-    (normalized.length >= alias.length - 1 && normalized.length <= alias.length + 1 && editDistance(normalized, alias) <= 1),
+    (alias.length >= 5 && normalized.length >= alias.length - 1 && normalized.length <= alias.length + 1 && editDistance(normalized, alias) <= 1),
   ))
 }
 
 function centerX(box: OcrBox) { return (box.left + box.right) / 2 }
 function centerY(box: OcrBox) { return (box.top + box.bottom) / 2 }
+
+function headerBodyBoundary(markers: { box: OcrBox }[], daysAreRows: boolean) {
+  const positions = markers.map(marker => daysAreRows ? centerY(marker.box) : centerX(marker.box)).sort((a, b) => a - b)
+  const gaps = positions.slice(1).map((position, index) => position - positions[index]).filter(gap => gap > 0).sort((a, b) => a - b)
+  const typicalDaySize = gaps[Math.floor(gaps.length / 2)] || Math.max(1, positions[0] * 0.6)
+  return positions[0] - typicalDaySize * 0.45
+}
 
 function isNoise(value: string) {
   const text = clean(value)
@@ -103,15 +115,16 @@ function isNoise(value: string) {
 }
 
 function isRoomMetadata(value: string) {
-  return /^(?:room\s*)?(?:\d{2,4}|(?:nf|nfc)\s*\d+)$/i.test(clean(value))
+  return /^(?:room\s*)?(?:\d{2,4}(?:\s*-\s*\d{2,4})?|(?:nf|nfc)\s*\d+)$/i.test(clean(value))
 }
 
-interface Cell extends OcrBox {
+export interface Cell extends OcrBox {
   period: number
   room?: string
   teacher?: string
   spansNextPeriod?: boolean
-  alternatives?: { name: string; room?: string; teacher?: string }[]
+  endPeriod?: number
+  alternatives?: ({ name: string; room?: string; teacher?: string } | null)[]
 }
 
 function groupCells(elements: OcrBox[], imageWidth: number): Cell[] {
@@ -140,10 +153,54 @@ function groupCells(elements: OcrBox[], imageWidth: number): Cell[] {
   }))
 }
 
+const ACADEMIC_TERMS = [
+  'object', 'oriented', 'programming', 'computational', 'methods', 'data', 'structures',
+  'discrete', 'mathematics', 'digital', 'logic', 'computer', 'design', 'operating',
+  'systems', 'software', 'engineering', 'networks', 'compiler', 'algorithm', 'analysis',
+  'database', 'electronics', 'communication', 'physics', 'chemistry', 'biology',
+  'economics', 'accounting', 'management', 'artificial', 'intelligence', 'machine',
+  'learning', 'development', 'architecture', 'security', 'theory', 'applications',
+]
+
+export function repairAcademicText(value: string) {
+  const normalizedForMatch = (token: string) => token.toLowerCase()
+    .replace(/0/g, 'o').replace(/[1|]/g, 'i').replace(/5/g, 's').replace(/rn/g, 'm')
+  value = value.replace(/\b(?:ub|ob)\s+ect\b/gi, 'Object')
+  // OCR frequently damages both halves of this hyphenated phrase (for
+  // example "Ub|ect-Urierited").  Once the first word is recovered, use the
+  // strong two-word context to allow one extra edit in "oriented"; applying
+  // that tolerance globally would over-correct unrelated course names.
+  value = value.replace(/\bobject[\s-]+([a-z0-9|]{6,10})\b/gi, (match, token: string) => {
+    const normalized = normalizedForMatch(token)
+    return editDistance(normalized, 'oriented') <= 3 ? 'Object-Oriented' : match
+  })
+  const repaired = value.replace(/[a-zA-Z0-9|]{4,}/g, token => {
+    const normalized = normalizedForMatch(token)
+    let best = token
+    let bestDistance = Number.POSITIVE_INFINITY
+    for (const term of ACADEMIC_TERMS) {
+      if (Math.abs(term.length - normalized.length) > 1) continue
+      const distance = editDistance(normalized, normalizedForMatch(term))
+      const allowed = normalized.length >= 6 ? 2 : 1
+      if (distance <= allowed && distance < bestDistance) {
+        best = term
+        bestDistance = distance
+      }
+    }
+    return best
+  })
+  return repaired
+    .replace(/\bobject[\s-]+oriented\b/gi, 'Object-Oriented')
+    .replace(/\b(Object-Oriented)(?:\s+\1)+\b/gi, '$1')
+}
+
 function titleCase(value: string) {
-  const titled = clean(value)
+  const titled = repairAcademicText(clean(value))
     .toLowerCase()
     .replace(/\b\w/g, character => character.toUpperCase())
+  const compact = titled.replace(/[^a-z]/gi, '')
+  if (/^Ncc[a-z]?Nss[a-z]?Sports$/i.test(compact)
+    || (/ncc/i.test(compact) && /sports/i.test(compact))) return 'NCC/NSS/Sports'
   return titled
     .replace(/\bAnd\b/g, 'and')
     .replace(/\bOf\b/g, 'of')
@@ -178,13 +235,99 @@ function normalizeClock(hourText: string, minuteText = '00', meridiem = '') {
 
 function clockValues(value: string) {
   const values: string[] = []
-  value = value.replace(/[bB](?=[.:]\d)/g, '8').replace(/[oO]/g, '0').replace(/[Il|]/g, '1')
-  const pattern = /(\d{1,2})(?:[:.](\d{2}))\s*(am|pm)?/gi
+  value = value
+    .replace(/[bB](?=\s*[.:]\s*\d)/g, '8')
+    .replace(/[oO]/g, '0')
+    .replace(/[Il|]/g, '1')
+    .replace(/[–—−~]/g, '-')
+  // Read each side of a range independently. OCR commonly drops the first
+  // separator only ("900-9.50") or appends a stray character to the second
+  // time. Treating the whole string with one regex shifted every later period.
+  const rangeParts = value.split('-').map(part => part.trim()).filter(Boolean)
+  if (rangeParts.length === 2) {
+    const parsePart = (part: string) => {
+      const punctuated = part.match(/(\d{1,2})\s*[:.]\s*(\d{2})/)
+      if (punctuated) return normalizeClock(punctuated[1], punctuated[2])
+      const compact = part.match(/(?:^|\D)(\d{3,4})(?:\D|$)/)
+      return compact ? normalizeClock(compact[1].slice(0, -2), compact[1].slice(-2)) : null
+    }
+    const start = parsePart(rangeParts[0]), end = parsePart(rangeParts[1])
+    if (start && end) {
+      const duration = durationMinutes(start, end)
+      if (duration >= 15 && duration <= 180) return [start, end]
+    }
+  }
+  const pattern = /(\d{1,2})\s*[:.]\s*(\d{2})\s*(am|pm)?/gi
   for (const match of value.matchAll(pattern)) {
     const normalized = normalizeClock(match[1], match[2], match[3])
     if (normalized) values.push(normalized)
   }
+  // Blurred OCR frequently drops the punctuation from a range ("810-900")
+  // or separates its digits ("8 10 - 9 00"). Only enable these repairs when
+  // a range delimiter is present, so room numbers such as 141 are not clocks.
+  if (values.length < 2 && /-/.test(value)) {
+    const compact: string[] = []
+    const compactPattern = /(?:^|[^\d])(\d{1,2})\s+(\d{2})(?=\D|$)|(?:^|[^\d])(\d{3,4})(?=\D|$)/g
+    for (const match of value.matchAll(compactPattern)) {
+      const digits = match[3]
+      const hour = digits ? digits.slice(0, -2) : match[1]
+      const minute = digits ? digits.slice(-2) : match[2]
+      const normalized = normalizeClock(hour, minute)
+      if (normalized) compact.push(normalized)
+    }
+    if (compact.length >= 2) {
+      const firstDuration = durationMinutes(compact[0], compact[1])
+      if (firstDuration >= 15 && firstDuration <= 180) return compact
+    }
+  }
   return values
+}
+
+function clockMinutes(value: string) {
+  return Number(value.slice(0, 2)) * 60 + Number(value.slice(3))
+}
+
+function durationMinutes(start: string, end: string) {
+  let duration = clockMinutes(end) - clockMinutes(start)
+  while (duration <= 0) duration += 12 * 60
+  return duration
+}
+
+function addClockMinutes(value: string, amount: number) {
+  const total = (clockMinutes(value) + amount + 24 * 60) % (24 * 60)
+  return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`
+}
+
+function completePeriodTimes(
+  source: ({ startTime: string; endTime: string } | undefined)[],
+  anchors: number[],
+) {
+  if (!source.some(Boolean)) return source
+  const result = [...source]
+  const durations = result.flatMap(time => time ? [durationMinutes(time.startTime, time.endTime)] : [])
+    .filter(duration => duration >= 35 && duration <= 100)
+    .sort((a, b) => a - b)
+  const duration = durations[Math.floor(durations.length / 2)] || 50
+  const gaps = anchors.slice(1).map((anchor, index) => anchor - anchors[index]).filter(gap => gap > 0).sort((a, b) => a - b)
+  const typicalGap = gaps[Math.floor(gaps.length / 2)] || 1
+  const breakAfter = (index: number) => {
+    if (index < 0 || index + 1 >= anchors.length) return 0
+    const extraRatio = Math.max(0, (anchors[index + 1] - anchors[index]) / typicalGap - 1)
+    return Math.round(extraRatio * duration / 5) * 5
+  }
+  for (let index = 1; index < result.length; index += 1) {
+    if (!result[index] && result[index - 1]) {
+      const startTime = addClockMinutes(result[index - 1]!.endTime, breakAfter(index - 1))
+      result[index] = { startTime, endTime: addClockMinutes(startTime, duration) }
+    }
+  }
+  for (let index = result.length - 2; index >= 0; index -= 1) {
+    if (!result[index] && result[index + 1]) {
+      const endTime = addClockMinutes(result[index + 1]!.startTime, -breakAfter(index))
+      result[index] = { startTime: addClockMinutes(endTime, -duration), endTime }
+    }
+  }
+  return result
 }
 
 function oneHourAfter(value: string) {
@@ -201,7 +344,7 @@ function makeClockChronological(value: string, previous?: string) {
 }
 
 function extractPeriodTimes(scan: TimetableOcrResult, daysAreRows: boolean, markers: { box: OcrBox }[], anchors: number[]) {
-  const firstMarkerPosition = Math.min(...markers.map(marker => daysAreRows ? centerY(marker.box) : centerX(marker.box)))
+  const firstMarkerPosition = headerBodyBoundary(markers, daysAreRows)
   const isHeaderSide = (box: OcrBox) => daysAreRows
     ? centerY(box) < firstMarkerPosition
     : centerX(box) < firstMarkerPosition
@@ -257,12 +400,24 @@ function extractPeriodTimes(scan: TimetableOcrResult, daysAreRows: boolean, mark
   let candidates = elementCandidates.length >= lineCandidates.length ? elementCandidates : lineCandidates
   candidates.sort((a, b) => daysAreRows ? centerX(a) - centerX(b) : centerY(a) - centerY(b))
 
-  const deduplicated = candidates.filter((box, index, all) => {
-    if (index === 0) return true
-    const previous = all[index - 1]
-    const distance = daysAreRows ? Math.abs(centerX(box) - centerX(previous)) : Math.abs(centerY(box) - centerY(previous))
-    return distance > (daysAreRows ? scan.width : scan.height) * 0.015
-  })
+  const dimension = daysAreRows ? scan.width : scan.height
+  const anchorGaps = anchors.slice(1).map((anchor, index) => anchor - anchors[index]).sort((a, b) => a - b)
+  const typicalGap = anchorGaps[Math.floor(anchorGaps.length / 2)] || dimension / Math.max(anchors.length, 8)
+  const deduplicated: OcrBox[] = []
+  for (const box of candidates) {
+    const position = daysAreRows ? centerX(box) : centerY(box)
+    const existingIndex = deduplicated.findIndex(existing => Math.abs(
+      position - (daysAreRows ? centerX(existing) : centerY(existing)),
+    ) <= typicalGap * 0.24)
+    if (existingIndex < 0) deduplicated.push(box)
+    else {
+      const existing = deduplicated[existingIndex]
+      const score = clockValues(box.text).length * 100 + box.text.length
+      const existingScore = clockValues(existing.text).length * 100 + existing.text.length
+      if (score > existingScore) deduplicated[existingIndex] = box
+    }
+  }
+  deduplicated.sort((a, b) => daysAreRows ? centerX(a) - centerX(b) : centerY(a) - centerY(b))
 
   let previousStart: string | undefined
   const detected = deduplicated.map((box, index) => {
@@ -278,26 +433,57 @@ function extractPeriodTimes(scan: TimetableOcrResult, daysAreRows: boolean, mark
 
   if (anchors.length < 2) return detected.map(({ startTime, endTime }) => ({ startTime, endTime }))
   const times: ({ startTime: string; endTime: string } | undefined)[] = anchors.map(() => undefined)
-  const neighbourGaps = anchors.slice(1).map((anchor, index) => anchor - anchors[index]).sort((a, b) => a - b)
-  const typicalGap = neighbourGaps[Math.floor(neighbourGaps.length / 2)] || (daysAreRows ? scan.width : scan.height) / Math.max(anchors.length, 1)
-  for (const value of detected) {
-    const position = daysAreRows ? centerX(value.box) : centerY(value.box)
-    let closest = 0
-    for (let index = 1; index < anchors.length; index += 1) {
-      if (Math.abs(position - anchors[index]) < Math.abs(position - anchors[closest])) closest = index
+
+  // Align the ordered ranges to the ordered numbered columns. Dynamic
+  // programming permits extra ranges (normally lunch) and missing OCR boxes
+  // without shifting every later period or falling back to invented times.
+  const candidateCount = detected.length
+  const periodCount = anchors.length
+  if (candidateCount >= periodCount) {
+    const dp = Array.from({ length: periodCount + 1 }, () => Array(candidateCount + 1).fill(Number.POSITIVE_INFINITY))
+    const take = Array.from({ length: periodCount + 1 }, () => Array(candidateCount + 1).fill(false))
+    for (let candidate = 0; candidate <= candidateCount; candidate += 1) dp[0][candidate] = 0
+    for (let period = 1; period <= periodCount; period += 1) {
+      for (let candidate = 1; candidate <= candidateCount; candidate += 1) {
+        dp[period][candidate] = dp[period][candidate - 1]
+        const value = detected[candidate - 1]
+        const position = daysAreRows ? centerX(value.box) : centerY(value.box)
+        const distanceCost = Math.abs(position - anchors[period - 1]) / Math.max(1, typicalGap)
+        const duration = durationMinutes(value.startTime, value.endTime)
+        const breakPenalty = duration < 38 ? 1.35 : duration > 100 ? 0.75 : 0
+        const matchCost = dp[period - 1][candidate - 1] + distanceCost + breakPenalty
+        if (matchCost < dp[period][candidate]) {
+          dp[period][candidate] = matchCost
+          take[period][candidate] = true
+        }
+      }
     }
-    // A lunch interval can sit exactly between two numbered period columns.
-    // Requiring a close match to the actual header anchor prevents it from
-    // overwriting the start/end time of either neighbouring class.
-    if (Math.abs(position - anchors[closest]) < typicalGap * 0.42) {
-      times[closest] = { startTime: value.startTime, endTime: value.endTime }
+    let period = periodCount, candidate = candidateCount
+    while (period > 0 && candidate > 0) {
+      if (take[period][candidate]) {
+        const value = detected[candidate - 1]
+        times[period - 1] = { startTime: value.startTime, endTime: value.endTime }
+        period--
+      }
+      candidate--
+    }
+  } else {
+    for (const value of detected) {
+      const position = daysAreRows ? centerX(value.box) : centerY(value.box)
+      let closest = 0
+      for (let index = 1; index < anchors.length; index += 1) {
+        if (Math.abs(position - anchors[index]) < Math.abs(position - anchors[closest])) closest = index
+      }
+      if (Math.abs(position - anchors[closest]) < typicalGap * 0.7) {
+        times[closest] = { startTime: value.startTime, endTime: value.endTime }
+      }
     }
   }
   return times
 }
 
 function extractPeriodAnchors(scan: TimetableOcrResult, daysAreRows: boolean, markers: { box: OcrBox }[]) {
-  const firstMarkerPosition = Math.min(...markers.map(marker => daysAreRows ? centerY(marker.box) : centerX(marker.box)))
+  const firstMarkerPosition = headerBodyBoundary(markers, daysAreRows)
   const isHeaderSide = (box: OcrBox) => daysAreRows
     ? centerY(box) < firstMarkerPosition
     : centerX(box) < firstMarkerPosition
@@ -306,8 +492,63 @@ function extractPeriodAnchors(scan: TimetableOcrResult, daysAreRows: boolean, ma
     .filter(box => isHeaderSide(box) && /^\s*(?:[1-9]|1[0-2])\s*$/.test(periodNumber(box.text)))
     .sort((a, b) => daysAreRows ? centerX(a) - centerX(b) : centerY(a) - centerY(b))
   if (numericHeaders.length >= 2) {
-    const ordered = numericHeaders.filter((box, index, all) => index === 0 || Number(periodNumber(box.text)) > Number(periodNumber(all[index - 1].text)))
-    if (ordered.length >= 2) return ordered.map(box => daysAreRows ? centerX(box) : centerY(box))
+    const numbered = numericHeaders.map(box => ({
+      number: Number(periodNumber(box.text)),
+      position: daysAreRows ? centerX(box) : centerY(box),
+    })).filter((item, index, all) => all.findIndex(other => other.number === item.number) === index)
+      .filter((item, index, all) => index === 0 || item.number > all[index - 1].number)
+    const minimum = Math.min(...numbered.map(item => item.number))
+    const maximum = Math.max(...numbered.map(item => item.number))
+    if (numbered.length >= 2 && minimum <= 2 && maximum >= 3) {
+      const known = new Map(numbered.map(item => [item.number, item.position]))
+      const pairSteps = numbered.slice(1).map((item, index) =>
+        (item.position - numbered[index].position) / Math.max(1, item.number - numbered[index].number),
+      ).filter(step => step > 0).sort((a, b) => a - b)
+      const typicalStep = pairSteps[Math.floor(pairSteps.length / 2)] || (daysAreRows ? scan.width : scan.height) / maximum
+      const reconstructed: number[] = []
+      for (let period = 1; period <= maximum; period += 1) {
+        const exact = known.get(period)
+        if (exact !== undefined) {
+          reconstructed.push(exact)
+          continue
+        }
+        const before = [...numbered].reverse().find(item => item.number < period)
+        const after = numbered.find(item => item.number > period)
+        if (before && after) {
+          reconstructed.push(before.position + (after.position - before.position) * (period - before.number) / (after.number - before.number))
+        } else if (before) reconstructed.push(before.position + typicalStep * (period - before.number))
+        else if (after) reconstructed.push(after.position - typicalStep * (after.number - period))
+      }
+      return reconstructed
+    }
+    if (numbered.length >= 2) return numbered.map(item => item.position)
+  }
+
+  // Grid geometry is independent of OCR. When period digits are unreadable,
+  // use the detected cell columns/rows and remove the weekday-label cell plus
+  // narrow break columns. This prevents later subjects from collapsing into
+  // fabricated P1/P2/P3 positions.
+  const gridLines = [...(daysAreRows ? scan.gridVerticalLines || [] : scan.gridHorizontalLines || [])]
+    .filter(value => Number.isFinite(value))
+    .sort((a, b) => a - b)
+  if (gridLines.length >= 4) {
+    const gridCells = gridLines.slice(1).map((line, index) => ({
+      center: (gridLines[index] + line) / 2,
+      size: line - gridLines[index],
+    })).filter(cell => cell.size > 0)
+    const markerPosition = markers.reduce((sum, marker) =>
+      sum + (daysAreRows ? centerX(marker.box) : centerY(marker.box)), 0) / markers.length
+    let markerCell = 0
+    for (let index = 1; index < gridCells.length; index += 1) {
+      if (Math.abs(gridCells[index].center - markerPosition) < Math.abs(gridCells[markerCell].center - markerPosition)) markerCell = index
+    }
+    const bodyCells = gridCells.slice(markerCell + 1)
+    const sizes = bodyCells.map(cell => cell.size).sort((a, b) => a - b)
+    const medianSize = sizes[Math.floor(sizes.length / 2)] || 0
+    const structuralAnchors = bodyCells
+      .filter(cell => cell.size >= medianSize * 0.62)
+      .map(cell => cell.center)
+    if (structuralAnchors.length >= 2) return structuralAnchors
   }
 
   const looksLikePeriodHeader = (box: OcrBox) =>
@@ -315,6 +556,13 @@ function extractPeriodAnchors(scan: TimetableOcrResult, daysAreRows: boolean, ma
 
   let candidates = scan.lines.filter(box => isHeaderSide(box) && looksLikePeriodHeader(box))
   if (candidates.length < 2) candidates = scan.elements.filter(box => isHeaderSide(box) && looksLikePeriodHeader(box))
+  if (candidates.length >= 5) {
+    const withoutShortBreaks = candidates.filter(box => {
+      const clocks = clockValues(box.text)
+      return clocks.length < 2 || durationMinutes(clocks[0], clocks[1]) >= 38
+    })
+    if (withoutShortBreaks.length >= 2) candidates = withoutShortBreaks
+  }
   const positions = candidates
     .map(box => daysAreRows ? centerX(box) : centerY(box))
     .sort((a, b) => a - b)
@@ -322,14 +570,37 @@ function extractPeriodAnchors(scan: TimetableOcrResult, daysAreRows: boolean, ma
   return positions.filter((position, index, all) => index === 0 || position - all[index - 1] > dimension * 0.025)
 }
 
-function parseCellEntry(textLines: string[]) {
-  const text = clean(textLines.join(' '))
+export function parseCellEntry(textLines: string[]) {
+  const normalizeRoomGlyphs = (value: string) => value.replace(/\b([0-9OQISl|T]{2,4})(\s*[-–]\s*)([0-9OQISl|T]{2,4})\b/gi, (_match, left, dash, right) => {
+    const digits = (part: string) => part.replace(/[OQ]/gi, '0').replace(/[ISl|T]/gi, '1')
+    return `${digits(left)}${dash}${digits(right)}`
+  })
+  const lines = textLines.flatMap(line => line.split(/\r?\n/)).map(line => clean(normalizeRoomGlyphs(line))).filter(Boolean)
+  let text = clean(normalizeRoomGlyphs(lines.join(' ')))
   if (!text) return null
   const teacherPattern = /\b(?:dr|mr|ms|mrs|prof)\.?\s+[a-z][a-z .'-]*/i
   const teacherMatch = text.match(teacherPattern)
-  const teacher = clean(teacherMatch?.[0] || '')
+  let teacher = clean(teacherMatch?.[0] || '')
   let remaining = teacherMatch ? clean(`${text.slice(0, teacherMatch.index)} ${text.slice((teacherMatch.index || 0) + teacherMatch[0].length)}`) : text
-  const roomMatches = [...remaining.matchAll(/(?:^|\s)((?:\d{2,4}|(?:nf|nfc)\s*\d+))(?=\s|$)/gi)]
+  if (!teacher) {
+    // A physical timetable cell is read top-to-bottom. Once a standalone
+    // room row is reached, later rows are faculty metadata even when OCR lost
+    // the Dr/Ms prefix; they must never become a second subject.
+    const roomLine = lines.findIndex(isRoomMetadata)
+    if (roomLine >= 0 && roomLine < lines.length - 1) {
+      teacher = clean(lines.slice(roomLine + 1).join(' '))
+      text = clean(lines.slice(0, roomLine + 1).join(' '))
+      remaining = text
+    }
+  }
+  if (!teacher) {
+    const untitledLabTeacher = remaining.match(/^(.*?\blab)\s+([a-z][a-z .'-]+?)\s+(\d{2,4}(?:\s*-\s*\d{2,4})?)$/i)
+    if (untitledLabTeacher) {
+      remaining = clean(`${untitledLabTeacher[1]} ${untitledLabTeacher[3]}`)
+      teacher = clean(untitledLabTeacher[2])
+    }
+  }
+  const roomMatches = [...remaining.matchAll(/(?:^|\s)((?:\d{2,4}(?:\s*-\s*\d{2,4})?|(?:nf|nfc)\s*\d+))(?=\s|$)/gi)]
   const roomMatch = roomMatches.at(-1)
   const room = roomMatch?.[1]?.replace(/\s+/g, '').toUpperCase()
   if (roomMatch?.index !== undefined) {
@@ -345,6 +616,7 @@ function groupCellsByAnchors(
   daysAreRows: boolean,
   dayStart: number,
   dayEnd: number,
+  crossGridLines: number[] = [],
 ): Cell[] {
   const groups = anchors.map(() => [] as OcrBox[])
   for (const element of elements) {
@@ -376,14 +648,44 @@ function groupCellsByAnchors(
       if (line) line.push(item)
       else visualLines.push([item])
     }
-    const subrowSize = Math.max(1, (dayEnd - dayStart) / 3)
-    const subrows = [0, 1, 2].map(subrow => visualLines.filter(line => {
-      const position = daysAreRows ? centerY(line[0]) : centerX(line[0])
-      return Math.max(0, Math.min(2, Math.floor((position - dayStart) / subrowSize))) === subrow
-    }))
-    const entries = subrows.map(lines => parseCellEntry(lines.map(line => clean([...line]
+    const relevantGridLines = [...crossGridLines]
+      .filter(line => line >= dayStart - lineTolerance && line <= dayEnd + lineTolerance)
+      .sort((a, b) => a - b)
+    let subrows: OcrBox[][][]
+    if (relevantGridLines.length >= 2) {
+      const byBand = new Map<number, OcrBox[][]>()
+      for (const line of visualLines) {
+        const position = daysAreRows ? centerY(line[0]) : centerX(line[0])
+        let band = 0
+        while (band < relevantGridLines.length && position > relevantGridLines[band]) band++
+        const existing = byBand.get(band) || []
+        existing.push(line)
+        byBand.set(band, existing)
+      }
+      subrows = [...byBand.entries()].sort(([left], [right]) => left - right).map(([, lines]) => lines)
+    } else {
+      const subrowSize = Math.max(1, (dayEnd - dayStart) / 3)
+      subrows = [0, 1, 2].map(subrow => visualLines.filter(line => {
+        const position = daysAreRows ? centerY(line[0]) : centerX(line[0])
+        return Math.max(0, Math.min(2, Math.floor((position - dayStart) / subrowSize))) === subrow
+      }))
+    }
+    const rowTexts = subrows.map(lines => clean(lines.map(line => clean([...line]
       .sort((a, b) => daysAreRows ? a.left - b.left : a.top - b.top)
-      .map(item => item.text).join(' '))))).filter((entry): entry is NonNullable<typeof entry> => !!entry)
+      .map(item => item.text).join(' '))).join(' '))).filter(Boolean)
+    // A merged cell can wrap "Subject name" and "Lab · teacher · room"
+    // across adjacent detected row bands. Join that continuation before
+    // deciding whether the bands are separate lab-group alternatives.
+    const logicalTexts: string[] = []
+    for (const text of rowTexts) {
+      const previous = logicalTexts.at(-1)
+      const startsAsContinuation = /^lab\b/i.test(text)
+        || (/^(?:dr|mr|ms|mrs|prof)\.?\b/i.test(text) && !!previous && /\blab\b/i.test(previous))
+      if (previous && startsAsContinuation) logicalTexts[logicalTexts.length - 1] = clean(`${previous} ${text}`)
+      else logicalTexts.push(text)
+    }
+    const entries = logicalTexts.map(text => parseCellEntry([text]))
+      .filter((entry): entry is NonNullable<typeof entry> => !!entry)
     const labEntries = entries.filter(entry => entry.name && /\blab\b/i.test(entry.name))
     const alternatives = labEntries.length >= 2
       ? labEntries.slice(0, 3).map(({ name, room, teacher }) => ({ name, room, teacher }))
@@ -397,8 +699,13 @@ function groupCellsByAnchors(
     const groupPosition = daysAreRows
       ? (Math.min(...group.map(item => item.left)) + Math.max(...group.map(item => item.right))) / 2
       : (Math.min(...group.map(item => item.top)) + Math.max(...group.map(item => item.bottom))) / 2
-    const spansNextPeriod = !!alternatives && index < anchors.length - 1
-      && Math.abs(groupPosition - (anchors[index] + anchors[index + 1]) / 2) <= (anchors[index + 1] - anchors[index]) * 0.2
+    const groupWidth = daysAreRows
+      ? Math.max(...group.map(item => item.right)) - Math.min(...group.map(item => item.left))
+      : Math.max(...group.map(item => item.bottom)) - Math.min(...group.map(item => item.top))
+    const spansNextPeriod = index < anchors.length - 1 && (
+      Math.abs(groupPosition - (anchors[index] + anchors[index + 1]) / 2) <= (anchors[index + 1] - anchors[index]) * 0.22
+      || groupWidth >= (anchors[index + 1] - anchors[index]) * 1.22
+    )
     return [{
       text: primary.name,
       room: metadata.room,
@@ -422,7 +729,7 @@ export function parseTimetableOcr(
     throw new Error('The scanner returned an invalid image result.')
   }
 
-  let markers = scan.elements
+  let markers = [...(scan.gridCells || []), ...scan.elements]
     .map(box => ({ box, day: findDay(box.text) }))
     .filter((item): item is { box: OcrBox; day: (typeof DAYS)[number] } => !!item.day)
 
@@ -448,7 +755,7 @@ export function parseTimetableOcr(
   const ySpread = Math.max(...markers.map(item => centerY(item.box))) - Math.min(...markers.map(item => centerY(item.box)))
   const daysAreRows = ySpread >= xSpread
   const periodAnchors = extractPeriodAnchors(scan, daysAreRows, markers)
-  const periodTimes = extractPeriodTimes(scan, daysAreRows, markers, periodAnchors)
+  const periodTimes = completePeriodTimes(extractPeriodTimes(scan, daysAreRows, markers, periodAnchors), periodAnchors)
   const preliminaryMarkerPositions = markers
     .map(marker => daysAreRows ? centerY(marker.box) : centerX(marker.box))
     .sort((a, b) => a - b)
@@ -510,7 +817,8 @@ export function parseTimetableOcr(
   const usableElements = bodyLines.length >= markers.length * 2
     ? bodyBoxes
     : scan.elements.filter(element => !isNoise(element.text) || isRoomMetadata(element.text))
-  const rows: { day: (typeof DAYS)[number]; cells: Cell[] }[] = []
+  const structure = constructGridDays(scan, markers, periodAnchors, daysAreRows, parseCellEntry)
+  const rows: { day: (typeof DAYS)[number]; cells: Cell[] }[] = structure?.rows || []
   const markerPositions = markers
     .map(item => daysAreRows ? centerY(item.box) : centerX(item.box))
     .sort((a, b) => a - b)
@@ -553,7 +861,14 @@ export function parseTimetableOcr(
       end: (daysAreRows ? centerY(marker.box) : centerX(marker.box)) + typicalDayGap / 2,
     }
     const ordered = periodAnchors.length >= 2
-      ? groupCellsByAnchors(candidates, periodAnchors, daysAreRows, bounds.start, bounds.end)
+      ? groupCellsByAnchors(
+          candidates,
+          periodAnchors,
+          daysAreRows,
+          bounds.start,
+          bounds.end,
+          daysAreRows ? scan.gridHorizontalLines || [] : scan.gridVerticalLines || [],
+        )
       : daysAreRows
       ? groupCells(candidates, scan.width)
       : groupCells(candidates.map(item => ({
@@ -564,15 +879,167 @@ export function parseTimetableOcr(
           bottom: item.right,
         })), scan.height)
 
-    rows.push({ day: marker.day, cells: ordered })
+    if (structure) {
+      // Grid geometry is authoritative, but a faint/broken rule can make one
+      // otherwise readable physical cell disappear from the reconstructed
+      // grid.  Use the independent positioned-text path only to fill a period
+      // that the grid left empty; never replace a structured cell or grouped
+      // lab.  This gives the two recognition strategies true failover instead
+      // of discarding all loose OCR as soon as any grid was detected.
+      const structuredRow = rows.find(row => row.day.number === marker.day.number)
+      if (structuredRow) {
+        const occupied = new Set(structuredRow.cells.flatMap(cell => {
+          const end = cell.endPeriod || (cell.spansNextPeriod ? cell.period + 1 : cell.period)
+          return Array.from({ length: Math.max(1, end - cell.period + 1) }, (_, index) => cell.period + index)
+        }))
+        structuredRow.cells.push(...ordered.filter(cell => !occupied.has(cell.period)))
+        structuredRow.cells.sort((left, right) => left.period - right.period)
+      }
+    } else rows.push({ day: marker.day, cells: ordered })
   }
 
   const subjectByKey = new Map<string, Subject>()
   const timetable: TimetableSlot[] = []
   const labGroups: TimetableLabGroupChoice[] = []
+  const personKey = (value: string) => clean(value)
+    .replace(/^(?:dr|mr|ms|mrs|prof)\.?\s+/i, '')
+    .toLowerCase().replace(/[^a-z]/g, '')
+  const teacherSamples = rows.flatMap(row => row.cells.flatMap(cell => [
+    cell.teacher,
+    ...(cell.alternatives || []).map(option => option?.teacher),
+  ])).filter((value): value is string => !!value)
+  const teacherStats = new Map<string, { count: number; display: string }>()
+  for (const sample of teacherSamples) {
+    const key = personKey(sample)
+    if (key.length < 4) continue
+    const current = teacherStats.get(key)
+    teacherStats.set(key, { count: (current?.count || 0) + 1, display: current?.display || clean(sample) })
+  }
+  const knownTeachers = new Set(teacherStats.keys())
+  const personWords = (value: string) => clean(value).replace(/^(?:dr|mr|ms|mrs|prof)\.?\s*/i, '').toLowerCase()
+    .replace(/[^a-z ]/g, '').split(/\s+/).filter(Boolean)
+  const canonicalTeacher = (value?: string) => {
+    if (!value) return undefined
+    const key = personKey(value), rawWords = personWords(value)
+    let best: { distance: number; count: number; display: string } | undefined
+    for (const [candidate, stats] of teacherStats) {
+      const distance = editDistance(key, candidate)
+      const candidateWords = personWords(stats.display)
+      const sameOuterName = rawWords.length >= 2 && candidateWords.length >= 2
+        && editDistance(rawWords[0], candidateWords[0]) <= 2
+        && rawWords.at(-1) === candidateWords.at(-1)
+      if (distance > 2 && !sameOuterName) continue
+      if (!best || stats.count > best.count || (stats.count === best.count && distance < best.distance)) {
+        best = { distance, count: stats.count, display: stats.display }
+      }
+    }
+    return best?.display || clean(value)
+  }
+  const looksLikeKnownTeacher = (value: string) => {
+    const key = personKey(value)
+    if (key.length < 4) return false
+    if (knownTeachers.has(key)) return true
+    const rawWords = personWords(value)
+    for (const [candidate, stats] of teacherStats) {
+      const length = Math.max(key.length, candidate.length)
+      if (length >= 6 && editDistance(key, candidate) <= Math.max(2, Math.floor(length * 0.18))) return true
+      const candidateWords = personWords(stats.display)
+      if (rawWords.length >= 2 && candidateWords.length >= 2) {
+        const firstDistance = editDistance(rawWords[0], candidateWords[0])
+        const lastDistance = editDistance(rawWords.at(-1)!, candidateWords.at(-1)!)
+        if (firstDistance <= (rawWords[0].length >= 6 ? 2 : 1)
+          && lastDistance <= (rawWords.at(-1)!.length >= 6 ? 2 : 1)) return true
+      }
+    }
+    return false
+  }
+  let rejectedTeacherCells = 0
+
+  const rawLectureBases = rows.flatMap(row => row.cells.flatMap(cell => {
+    if (cell.alternatives?.length || /\blab\b/i.test(cell.text)) return []
+    const name = titleCase(cell.text)
+    return name.length >= 4 && name.length <= 80 && !isNoise(name) && !BREAK_WORDS.test(name)
+      && !looksLikeKnownTeacher(name) ? [name] : []
+  }))
+  const comparisonKey = (value: string) => repairAcademicText(value).toLowerCase()
+    .replace(/\b(?:laboratory|practical)\b/g, 'lab')
+    .replace(/\blab\b/g, '')
+    .replace(/0/g, 'o').replace(/[1|]/g, 'i').replace(/5/g, 's').replace(/rn/g, 'm')
+    .replace(/[^a-z0-9+]+/g, '')
+  const subjectSimilarity = (left: string, right: string) => {
+    // A qualifier changes the course identity.  In particular, "Object
+    // Oriented Programming" and "... Programming using C++" are separate
+    // subjects in many timetables and must not be merged merely because most
+    // of their characters match.  A damaged language token may disappear,
+    // but "using" itself is normally retained and remains the boundary.
+    const leftHasUsing = /\busing\b/i.test(left), rightHasUsing = /\busing\b/i.test(right)
+    if (leftHasUsing !== rightHasUsing) return 0
+    const a = comparisonKey(left), b = comparisonKey(right)
+    if (!a || !b) return 0
+    const characterScore = 1 - editDistance(a, b) / Math.max(a.length, b.length)
+    const leftWords = repairAcademicText(left).toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').split(/\s+/).filter(Boolean)
+    const rightWords = repairAcademicText(right).toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').split(/\s+/).filter(Boolean)
+    const matched = leftWords.filter(word => rightWords.some(candidate => {
+      const allowance = Math.max(word.length, candidate.length) >= 7 ? 2 : 1
+      return editDistance(word, candidate) <= allowance
+    })).length
+    const wordScore = matched / Math.max(leftWords.length, rightWords.length, 1)
+    return Math.max(characterScore, characterScore * 0.55 + wordScore * 0.45)
+  }
+  type SubjectCluster = { samples: string[] }
+  const lectureClusters: SubjectCluster[] = []
+  for (const sample of rawLectureBases) {
+    let best: { cluster: SubjectCluster; score: number } | undefined
+    for (const cluster of lectureClusters) {
+      const score = Math.max(...cluster.samples.map(existing => subjectSimilarity(sample, existing)))
+      if (score >= 0.72 && (!best || score > best.score)) best = { cluster, score }
+    }
+    if (best) best.cluster.samples.push(sample)
+    else lectureClusters.push({ samples: [sample] })
+  }
+  const sampleQuality = (value: string, cluster: SubjectCluster) => {
+    const repeated = cluster.samples.filter(sample => comparisonKey(sample) === comparisonKey(value)).length
+    const consensus = cluster.samples.reduce((total, sample) => total + subjectSimilarity(value, sample), 0)
+    const suspicious = (value.match(/\b[a-z]{1,2}\b/gi) || []).length + (value.match(/\d/g) || []).length
+    const explicitLanguage = /(?:c\s*\+\+|java|python|javascript|kotlin|swift)\b/i.test(value) ? 4 : 0
+    const danglingUsing = /\busing\s*$/i.test(value) ? 4 : 0
+    return repeated * 12 + consensus * 4 + repairAcademicText(value).length * 0.02
+      + explicitLanguage - suspicious * 2 - danglingUsing
+  }
+  const lectureBases = lectureClusters.map(cluster => [...new Set(cluster.samples)]
+    .sort((left, right) => sampleQuality(right, cluster) - sampleQuality(left, cluster))[0])
+  const canonicalLectureName = (value: string) => {
+    const repaired = titleCase(value)
+    let best: { name: string; score: number } | undefined
+    for (const base of lectureBases) {
+      const score = subjectSimilarity(repaired, base)
+      if (score >= 0.72 && (!best || score > best.score)) best = { name: base, score }
+    }
+    return best?.name || repaired
+  }
+  const words = (value: string) => value.toLowerCase().replace(/[^a-z0-9+]+/g, ' ').split(' ').filter(word => word.length >= 2)
+  const canonicalLabName = (value: string) => {
+    const repaired = titleCase(value)
+    if (!/\blab\b/i.test(repaired)) return canonicalLectureName(repaired)
+    const rawWords = words(repaired).filter(word => word !== 'lab')
+    let best: { name: string; matches: number; coverage: number } | undefined
+    for (const base of lectureBases) {
+      const baseWords = words(base)
+      if (baseWords.length < 2) continue
+      const matches = baseWords.filter(baseWord => rawWords.some(rawWord => {
+        const allowance = Math.max(baseWord.length, rawWord.length) >= 7 ? 2 : 1
+        return editDistance(baseWord, rawWord) <= allowance
+      })).length
+      const coverage = matches / baseWords.length
+      if (matches >= 2 && coverage >= 0.6 && (!best || matches > best.matches || (matches === best.matches && coverage > best.coverage))) {
+        best = { name: `${base} Lab`, matches, coverage }
+      }
+    }
+    return best?.name || repaired
+  }
 
   const getSubject = (rawName: string) => {
-    const name = titleCase(rawName)
+    const name = canonicalLabName(rawName)
     const key = name.toLowerCase().replace(/0/g, 'o').replace(/1/g, 'i').replace(/rn/g, 'm').replace(/[^a-z0-9]/g, '')
     if (!key) return null
     let subject = subjectByKey.get(key)
@@ -592,17 +1059,23 @@ export function parseTimetableOcr(
   for (const row of rows) {
     row.cells.forEach(cell => {
       const name = titleCase(cell.text)
-      if (!name || BREAK_WORDS.test(name) || isNoise(name)) return
+      if (!name || BREAK_WORDS.test(name) || isNoise(name) || /^(?:dr|mr|ms|mrs|prof)\b/i.test(name)) return
+      // If the same person was recognized as faculty elsewhere (usually from
+      // the row below a room number), a title-less OCR copy is still faculty,
+      // not a new subject.
+      if (looksLikeKnownTeacher(name)) { rejectedTeacherCells++; return }
       const period = cell.period
       const time = periodTimes[period - 1] || defaultTime(period)
       if (cell.alternatives?.length) {
-        const options = cell.alternatives.flatMap(option => {
+        const options = cell.alternatives.map(option => {
+          if (!option) return null
           const subject = getSubject(option.name)
-          return subject ? [{ subjectId: subject.id, name: subject.name, room: option.room, teacher: option.teacher }] : []
+          return subject ? { subjectId: subject.id, name: subject.name, room: option.room, teacher: canonicalTeacher(option.teacher) } : null
         })
-        if (options.length >= 2) {
-          const labTime = cell.spansNextPeriod
-            ? { startTime: time.startTime, endTime: (periodTimes[period] || defaultTime(period + 1)).endTime }
+        if (options.some(Boolean)) {
+          const endPeriod = cell.endPeriod || (cell.spansNextPeriod ? period + 1 : period)
+          const labTime = endPeriod > period
+            ? { startTime: time.startTime, endTime: (periodTimes[endPeriod - 1] || defaultTime(endPeriod)).endTime }
             : time
           labGroups.push({ dayOfWeek: row.day.number, period, ...labTime, options })
           return
@@ -616,8 +1089,11 @@ export function parseTimetableOcr(
         period,
         subjectId: subject.id,
         ...time,
+        ...((cell.endPeriod || (cell.spansNextPeriod ? period + 1 : period)) > period
+          ? { endTime: (periodTimes[(cell.endPeriod || period + 1) - 1] || defaultTime(cell.endPeriod || period + 1)).endTime }
+          : {}),
         room: cell.room,
-        teacher: cell.teacher,
+        teacher: canonicalTeacher(cell.teacher),
       })
     })
   }
@@ -628,6 +1104,8 @@ export function parseTimetableOcr(
 
   const detectedDays = rows.filter(row => row.cells.length > 0).map(row => row.day.label)
   const warnings: string[] = []
+  if (structure) warnings.push(...structure.warnings)
+  if (rejectedTeacherCells) warnings.push(`${rejectedTeacherCells} faculty-name cell${rejectedTeacherCells === 1 ? ' was' : 's were'} excluded from subjects. Review the affected periods.`)
   const expectedDays = markers.some(marker => marker.day.number > 5) ? Math.max(...markers.map(marker => marker.day.number)) : 5
   if (detectedDays.length < expectedDays) warnings.push(`Only ${detectedDays.length} class day${detectedDays.length === 1 ? '' : 's'} were detected. Add any missing day manually before applying.`)
   const periodCount = Math.max(periodAnchors.length, ...rows.flatMap(row => row.cells.map(cell => cell.period)), 0)
@@ -635,7 +1113,7 @@ export function parseTimetableOcr(
   if (sparseDays.length) warnings.push(`Very few periods were read for ${sparseDays.map(row => row.day.label).join(', ')}. Check those days carefully.`)
   if (periodAnchors.length < 2) warnings.push('Period headers were not detected reliably, so period positions were estimated from the timetable layout.')
   if (scan.fullText.length < 30) warnings.push('Only a small amount of text was readable; review every generated period.')
-  warnings.push(periodTimes.length
+  warnings.push(periodTimes.some(Boolean)
     ? 'Times were read from the image where possible. Review every generated period before applying.'
     : 'Class times were not readable and are estimated as one-hour periods. Review every generated period before applying.')
 
@@ -647,13 +1125,14 @@ export function parseTimetableOcr(
       ? 'high'
       : detectedDays.length >= 3 && timetable.length >= 6 ? 'medium' : 'low',
     warnings,
-    labGroups,
+    labGroups: labGroups.sort((a, b) => a.dayOfWeek - b.dayOfWeek || a.period - b.period),
+    groupCount: Math.max(0, ...labGroups.map(choice => choice.options.length)),
   }
 }
 
 export function selectTimetableLabGroup(
   imported: TimetableImageImport,
-  group: 1 | 2 | 3,
+  group: number,
   makeId: () => string = () => crypto.randomUUID(),
 ): TimetableImageImport {
   const selectedLabs = imported.labGroups.flatMap(choice => {
