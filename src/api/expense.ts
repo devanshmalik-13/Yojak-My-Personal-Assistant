@@ -1,0 +1,12 @@
+import type { Category, Transaction } from "../types";
+import { createId } from "../database/ids";
+import { categoryRepository } from "../repositories/categoryRepository";
+import { transactionRepository } from "../repositories/transactionRepository";
+export type CreateTransactionPayload=Omit<Transaction,"id">;
+export const getTransactions=(month?:string)=>transactionRepository.getAll(month);
+export const createTransaction=(x:CreateTransactionPayload)=>transactionRepository.save({...x,id:createId()});
+export const updateTransaction=(id:string,x:Partial<Transaction>)=>transactionRepository.update(id,x);
+export const deleteTransaction=(id:string)=>transactionRepository.delete(id);
+export const getExpenseSummary=(month:string)=>transactionRepository.getMonthlySummary(month);
+export const getCategories=()=>categoryRepository.getAll();
+export const createCategory=(x:Omit<Category,"id">)=>categoryRepository.create(x);
