@@ -54,7 +54,7 @@ export default function ChangeTimetableFlow({ onClose }: Props) {
   const [pdfPage, setPdfPage] = useState(0)
   const [pdfPageCount, setPdfPageCount] = useState(1)
   const [pendingImport, setPendingImport] = useState<TimetableImageImport | null>(null)
-  const [selectedLabGroup, setSelectedLabGroup] = useState<1 | 2 | 3 | null>(null)
+  const [selectedLabGroup, setSelectedLabGroup] = useState<number | null>(null)
   const galleryInputRef = useRef<HTMLInputElement>(null)
   const cameraInputRef = useRef<HTMLInputElement>(null)
   const pdfInputRef = useRef<HTMLInputElement>(null)
@@ -70,7 +70,7 @@ export default function ChangeTimetableFlow({ onClose }: Props) {
     setScanWarnings(imported.warnings)
     const source = ocr.sourceType === 'pdf' ? `PDF page ${(ocr.pageIndex ?? pageIndex) + 1}${(ocr.pageCount || 1) > 1 ? ` of ${ocr.pageCount}` : ''} · ` : ''
     const labPrompt = imported.labGroups.length ? ` · ${imported.labGroups.length} grouped lab slots—choose your group below` : ''
-    setScanSummary(`${source}${imported.detectedDays.length} days · ${imported.subjects.length} subjects · ${imported.timetable.length} confirmed periods${labPrompt}`)
+    setScanSummary(`${source}${imported.detectedDays.length} days · ${imported.subjects.length} subjects · ${imported.timetable.length} detected classes${labPrompt}`)
     setScanStatus('complete')
   }
 
@@ -157,7 +157,7 @@ export default function ChangeTimetableFlow({ onClose }: Props) {
     void analyzeDocument(selectedDocumentData, true, page)
   }
 
-  const chooseLabGroup = (group: 1 | 2 | 3) => {
+  const chooseLabGroup = (group: number) => {
     if (!pendingImport) return
     const selected = selectTimetableLabGroup(pendingImport, group, uid)
     setSelectedLabGroup(group)
@@ -511,15 +511,20 @@ export default function ChangeTimetableFlow({ onClose }: Props) {
                     {scanStatus === 'complete' && pendingImport && pendingImport.labGroups.length > 0 && (
                       <div className="mt-4 rounded-xl border border-primary/25 bg-primary/5 p-3">
                         <p className="text-xs font-semibold text-fg">Which lab group are you in?</p>
-                        <p className="text-[10px] text-muted-fg mt-1">The scanner found simultaneous lab divisions. Your choice determines which lab is added at those times.</p>
+                        <p className="text-[10px] text-muted-fg mt-1">Choose the group row shown in your timetable, counted from the top. Blank rows mean no class for that group.</p>
                         <div className="grid grid-cols-3 gap-2 mt-3">
-                          {([1, 2, 3] as const).map(group => (
+                          {Array.from({ length: pendingImport.groupCount || 3 }, (_, index) => index + 1).map(group => (
                             <button key={group} onClick={() => chooseLabGroup(group)}
                               className={`py-2.5 rounded-xl text-xs font-semibold border ${selectedLabGroup === group ? 'bg-primary text-white border-primary' : 'bg-card text-fg border-border'}`}>
                               Group {group}
                             </button>
                           ))}
                         </div>
+                        {selectedLabGroup && <div className="mt-3 space-y-1">
+                          {pendingImport.labGroups.map(choice => <p key={`${choice.dayOfWeek}:${choice.period}`} className="text-xs text-muted-fg">
+                            {DAY_NAMES[choice.dayOfWeek - 1]} · P{choice.period} · {choice.startTime}–{choice.endTime}: {choice.options[selectedLabGroup - 1]?.name || 'No class'}
+                          </p>)}
+                        </div>}
                       </div>
                     )}
                     {scanStatus === 'error' && (

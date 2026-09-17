@@ -14,7 +14,7 @@ type SlotRow = {
   end_time: string
   room: string | null
   teacher: string | null
-  lab_group: 1 | 2 | 3 | null
+  lab_group: number | null
 }
 const map = (row: SlotRow): TimetableSlot => ({
   id: row.id,

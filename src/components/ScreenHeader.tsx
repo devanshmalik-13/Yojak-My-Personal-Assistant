@@ -37,7 +37,7 @@ export default function ScreenHeader({
   const initials = name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase() || '?'
 
   return (
-    <div className="flex items-center gap-3 px-5 safe-top pb-4 border-b border-border/70 bg-bg/95 backdrop-blur-xl">
+    <div className="flex items-center gap-2 min-[390px]:gap-3 px-4 min-[390px]:px-5 safe-top pb-4 border-b border-border/70 bg-bg/95 backdrop-blur-xl">
       {/* Left: title or greeting */}
       <div className="flex-1 min-w-0">
         {showGreeting ? (
@@ -49,7 +49,7 @@ export default function ScreenHeader({
             </h1>
           </>
         ) : (
-          <h1 className="font-display font-bold text-fg tracking-tight truncate text-2xl"
+          <h1 className={`font-display font-bold text-fg tracking-tight truncate ${action ? 'text-lg min-[390px]:text-2xl' : 'text-2xl'}`}
             style={{ letterSpacing: '-0.035em' }}>{title}</h1>
         )}
       </div>

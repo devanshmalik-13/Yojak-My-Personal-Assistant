@@ -38,7 +38,7 @@ export interface TimetableSlot {
   endTime: string
   room?: string
   teacher?: string
-  labGroup?: 1 | 2 | 3
+  labGroup?: number
   timetableVersionId?: string
 }
 
