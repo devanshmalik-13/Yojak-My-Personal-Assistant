@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseTimetableOcr, selectTimetableLabGroup, type OcrBox, type TimetableOcrResult } from '../src/services/timetableImageParser'
+import { parseCellEntry, parseTimetableOcr, repairAcademicText, selectTimetableLabGroup, type OcrBox, type TimetableOcrResult } from '../src/services/timetableImageParser'
 
 function box(text: string, left: number, top: number, right: number, bottom: number): OcrBox {
   return { text, left, top, right, bottom }
@@ -11,6 +11,14 @@ function ids() {
 }
 
 describe('timetable image parser', () => {
+  it('repairs heavily damaged object-oriented course text without treating faculty as a subject', () => {
+    expect(parseCellEntry(['Ub|ect-Urierited', 'Prograrmming', '843', 'Dr. Bhaskar Kapoor'])).toMatchObject({
+      name: 'Ub ect-Urierited Prograrmming',
+      room: '843',
+      teacher: 'Dr. Bhaskar Kapoor',
+    })
+    expect(repairAcademicText('Ub ect-Urierited Prograrmming')).toBe('Object-Oriented programming')
+  })
   it('generates day-wise subjects and periods from weekday rows', () => {
     const elements = [
       box('onday', 20, 100, 100, 125),
@@ -180,6 +188,118 @@ describe('timetable image parser', () => {
     expect(monday.find(slot => slot.period === 10)).toMatchObject({ startTime: '16:10', endTime: '17:00' })
   })
 
+  it('reconstructs missed period numbers and aligns late periods after lunch', () => {
+    const periodX = [160, 260, 360, 460, 560, 660, 810, 910, 1010]
+    const elements = [
+      box('1', 155, 20, 165, 35), box('2', 255, 20, 265, 35),
+      // OCR missed 3, 4, 5 and 6, but later headers remain readable.
+      box('7', 805, 20, 815, 35), box('8', 905, 20, 915, 35), box('9', 1005, 20, 1015, 35),
+      box('Monday', 15, 150, 90, 170),
+      box('EFE', 145, 150, 180, 170), box('OS', 795, 150, 830, 170),
+      box('DAAOA', 895, 150, 945, 170), box('CDL', 995, 150, 1035, 170),
+      box('Tuesday', 15, 280, 90, 300), box('Networks', 345, 280, 415, 300),
+    ]
+    const scan: TimetableOcrResult = {
+      width: 1100,
+      height: 420,
+      fullText: elements.map(item => item.text).join(' '),
+      elements,
+      lines: [
+        box('810-900 900-950 950-1040 1040-1130 1130-1220 1220-110 110-140 140-230 230-320 320-410', 120, 50, 1060, 70),
+        ...elements.filter(item => !/^\d+$/.test(item.text)),
+      ],
+      extractionMode: 'regionConsensus',
+    }
+
+    const imported = parseTimetableOcr(scan, ids())
+    const monday = imported.timetable.filter(slot => slot.dayOfWeek === 1)
+
+    expect(monday.find(slot => slot.period === 7)).toMatchObject({ startTime: '13:40', endTime: '14:30' })
+    expect(monday.find(slot => slot.period === 8)).toMatchObject({ startTime: '14:30', endTime: '15:20' })
+    expect(monday.find(slot => slot.period === 9)).toMatchObject({ startTime: '15:20', endTime: '16:10' })
+    expect(periodX).toHaveLength(9)
+  })
+
+  it('uses detected grid columns when every period number is unreadable', () => {
+    const elements = [
+      box('Monday', 15, 150, 85, 170),
+      box('Maths', 120, 150, 180, 170), box('Physics', 220, 150, 285, 170),
+      box('English', 470, 150, 535, 170),
+      box('Tuesday', 15, 280, 85, 300), box('Chemistry', 320, 280, 390, 300),
+    ]
+    const scan: TimetableOcrResult = {
+      width: 560,
+      height: 400,
+      fullText: elements.map(item => item.text).join(' '),
+      elements,
+      lines: [
+        box('810-900 900-950 950-1040 1040-1110 1110-1200', 105, 50, 545, 70),
+        ...elements,
+      ],
+      gridVerticalLines: [0, 100, 200, 300, 400, 450, 550],
+      gridHorizontalLines: [0, 90, 220, 350],
+      extractionMode: 'regionConsensus',
+    }
+
+    const imported = parseTimetableOcr(scan, ids())
+
+    expect(imported.timetable.find(slot => slot.dayOfWeek === 1 && slot.period === 4)).toMatchObject({
+      startTime: '11:10', endTime: '12:00',
+    })
+    expect(imported.timetable.find(slot => slot.dayOfWeek === 2 && slot.period === 3)?.subjectId).toBeTruthy()
+  })
+
+  it('constructs variable row bands and merged multi-period labs', () => {
+    const elements = [
+      box('1', 145, 20, 155, 35), box('2', 245, 20, 255, 35),
+      box('3', 345, 20, 355, 35), box('4', 445, 20, 455, 35),
+      box('Monday', 15, 155, 85, 175),
+      box('Data Structures', 110, 108, 190, 124), box('843', 140, 142, 165, 157), box('Dr. Meenu Garg', 112, 174, 190, 189),
+      box('Object-Oriented Programming using C++', 315, 112, 485, 128),
+      box('Lab Ajay Kaushik 821-822', 338, 145, 475, 160),
+      box('Tuesday', 15, 285, 85, 305), box('Discrete Mathematics', 210, 285, 290, 305),
+    ]
+    const scan: TimetableOcrResult = {
+      width: 600,
+      height: 400,
+      fullText: elements.map(item => item.text).join(' '),
+      elements,
+      lines: elements.filter(item => !/^\d$/.test(item.text)),
+      gridVerticalLines: [0, 100, 200, 300, 400, 500],
+      gridHorizontalLines: [70, 100, 132, 164, 196, 230, 265, 330],
+      extractionMode: 'regionConsensus',
+    }
+
+    const imported = parseTimetableOcr(scan, ids())
+    const labSubject = imported.subjects.find(subject => /Object-Oriented Programming using C\+\+ Lab/i.test(subject.name))
+    const lab = imported.timetable.find(slot => slot.subjectId === labSubject?.id)
+
+    expect(imported.timetable.find(slot => slot.dayOfWeek === 1 && slot.period === 1)).toMatchObject({
+      room: '843', teacher: 'Dr. Meenu Garg',
+    })
+    expect(lab).toMatchObject({
+      dayOfWeek: 1, period: 3, startTime: '11:00', endTime: '13:00', room: '821-822', teacher: 'Ajay Kaushik',
+    })
+  })
+
+  it('repairs conservative OCR corruption in common academic subject terms', () => {
+    const elements = [
+      box('1', 145, 20, 155, 35), box('2', 245, 20, 255, 35),
+      box('Monday', 15, 120, 85, 140), box('ubject uriented programing', 110, 120, 290, 140),
+      box('Tuesday', 15, 240, 85, 260), box('0perating Systerns', 110, 240, 260, 260),
+    ]
+    const scan: TimetableOcrResult = {
+      width: 400, height: 320, fullText: elements.map(item => item.text).join(' '), elements,
+      lines: elements.filter(item => !/^\d$/.test(item.text)), extractionMode: 'regionConsensus',
+    }
+
+    const imported = parseTimetableOcr(scan, ids())
+
+    expect(imported.subjects.map(subject => subject.name)).toEqual(expect.arrayContaining([
+      'Object-Oriented Programming', 'Operating Systems',
+    ]))
+  })
+
   it('asks for a lab group and selects only that simultaneous lab division', () => {
     const elements = [
       box('1', 195, 20, 205, 35), box('2', 395, 20, 405, 35),
@@ -205,6 +325,41 @@ describe('timetable image parser', () => {
     expect(selected.subjects.map(subject => subject.name)).toContain('Systems Lab')
     expect(selected.subjects.map(subject => subject.name)).not.toContain('Networks Lab')
     expect(lab?.labGroup).toBe(2)
+  })
+
+  it('keeps blank physical group lanes in place instead of shifting a later lab', () => {
+    const elements = [
+      box('1', 145, 30, 155, 45), box('2', 245, 30, 255, 45),
+      box('Monday', 15, 155, 85, 175), box('Data Structures Lab', 115, 205, 285, 225),
+      box('Tuesday', 15, 305, 85, 325), box('Mathematics', 115, 275, 190, 295),
+    ]
+    const gridCells = [
+      { ...box('Monday', 0, 100, 100, 250), hasInk: true },
+      { ...box('', 100, 100, 300, 150), hasInk: false },
+      { ...box('', 100, 150, 300, 200), hasInk: false },
+      { ...box('Data Structures Lab\n821-822\nDr Meenu Garg', 100, 200, 300, 250), hasInk: true },
+      { ...box('Tuesday', 0, 250, 100, 400), hasInk: true },
+      { ...box('Mathematics\n843\nSatish Verma', 100, 250, 200, 400), hasInk: true },
+      { ...box('', 200, 250, 300, 400), hasInk: false },
+    ]
+    const scan: TimetableOcrResult = {
+      width: 340, height: 430, fullText: elements.map(item => item.text).join(' '), elements,
+      lines: elements.filter(item => !/^\d$/.test(item.text)), gridCells,
+      gridVerticalLines: [0, 100, 200, 300], gridHorizontalLines: [100, 150, 200, 250, 400],
+      extractionMode: 'regionConsensus',
+    }
+
+    const imported = parseTimetableOcr(scan, ids())
+    expect(imported.groupCount).toBe(3)
+    expect(imported.labGroups).toHaveLength(1)
+    expect(imported.labGroups[0].options).toEqual([
+      null,
+      null,
+      expect.objectContaining({ name: 'Data Structures Lab', room: '821-822', teacher: 'Dr Meenu Garg' }),
+    ])
+    expect(selectTimetableLabGroup(imported, 1, ids()).timetable.some(slot => slot.dayOfWeek === 1)).toBe(false)
+    expect(selectTimetableLabGroup(imported, 3, ids()).timetable.find(slot => slot.dayOfWeek === 1)).toMatchObject({ labGroup: 3 })
+    expect(imported.subjects.map(subject => subject.name)).not.toContain('Satish Verma')
   })
 
   it('uses the three day subrows as class metadata or simultaneous lab groups', () => {

@@ -1,0 +1,5210 @@
+{
+  "width": 3600,
+  "height": 1360,
+  "fullText": "2\nDayłTime\nMonday\nTuesday\nWednesday\nThursday\nFriday\n1\n8.10-9.00\nNCCNSSSports\n2\n900-9.50O\nNCCNSSSports\n9.50-10.40\nNCCNSSports\nUbjeci-Uriented\nPrograrnming\n843\nDr. Bhaskar Kapoor\nData Structures\n843\nData Structures\n10,40-11.30\nB43\nDiscreie Mathemati os\nDr. Meenu Garg\n43\nDr. Deepika Bansal\nDr. Meenu Garg Dr. Deepika Bansal\nLomputatıonal iethods Lab Dr.Narender\nKaushik 831-832\nDiscrete Mathematios\nObject-Oriented Progranrring using C++\nLab Dr. Neha Singh 831-832\n843\nUbject-Uriented\nProgranmming using\n843\nDr. Bhaskar Kapoor\nSection:3T101112\n5\nt1:30-12.20\n12.20-1.1O\nData 5ructures Lab Dr. Neha Agrawal 83-\n832\nData Structures Lab Dr. Meernu Garg 831-832\nLomputatıonal Methods Lab Dr. Surbh Laa\n831-832\nLomputalional\nDigital Logic and\nMethods\nComputer Design\n843\n843\nDr. Satish Verma Ms. Abhilasha Gokhale\nbject-riented\nPrograrnning\nusing C++\n843\n843\nDr. Bhaskar Kapoor Ms. Abhilasha Gokhale\nDigital Logic andCormputational Aethods\nComputer Design\nMs. Abhilasha\nGokhale\nConputational\nMethods\n843\nDigital Logic and\nComputer Design\nDr. Satish Verma\n843\n843\nDr. Satish Verma\nDiscrete Mathematics\n843\nDr. Deepika Bansal\n1.40\nLUN\nCH\nBRE\nAK\n7\n1.40-2.30\nData Structures\n812\nDr. Meenu Garg\n2.30-3.20\nDigital Logic and\nCornputer Design\n812\nvis. Abhilasha\nGokhaleA\nLomputatıonal lMethods Lab Dr. Satısh\nVerma 821-822\nUbject-UnentedProgramming SINg L+t\nLab Dr. Bhaskar Kapoor 821-822\nbject-UientedFrograrmming using L++\nLab Ajay Kaushik 821-822\n9\nDIgital Logic and Lomputer DesIgn Lab\n427 Ms. Abhilasha Gokhale\nDigtal Logic ard Lompuer Design Lab\n434 Mr. FRohit Uday Lakhane\nDIgtal LogIc and Computer Desıgn Lab\n433 Dr. Neerai\n3.20-4.10\nDiscrete\nMathematics\n812\n|Dr. Deepika Barsal\nData Struuctures\n812\nData Structures Lab Dr. Meenu Garg 821-822 Dr. Meenu Garg\nLibrary\n4.10-5.00",
+  "sourceType": "image",
+  "pageCount": 1,
+  "pageIndex": 0,
+  "extractionMode": "regionConsensus",
+  "lines": [
+    {
+      "text": "Section: 3IT101112",
+      "left": 1614,
+      "top": 16,
+      "right": 1918,
+      "bottom": 45
+    },
+    {
+      "text": "1",
+      "left": 395,
+      "top": 99,
+      "right": 401,
+      "bottom": 119
+    },
+    {
+      "text": "2",
+      "left": 680,
+      "top": 99,
+      "right": 699,
+      "bottom": 133
+    },
+    {
+      "text": "5",
+      "left": 1644,
+      "top": 99,
+      "right": 1659,
+      "bottom": 124
+    },
+    {
+      "text": "6",
+      "left": 1977,
+      "top": 99,
+      "right": 1991,
+      "bottom": 125
+    },
+    {
+      "text": "7",
+      "left": 2439,
+      "top": 99,
+      "right": 2453,
+      "bottom": 123
+    },
+    {
+      "text": "8",
+      "left": 2771,
+      "top": 99,
+      "right": 2785,
+      "bottom": 125
+    },
+    {
+      "text": "9",
+      "left": 3066,
+      "top": 99,
+      "right": 3081,
+      "bottom": 124
+    },
+    {
+      "text": "10",
+      "left": 3356,
+      "top": 99,
+      "right": 3382,
+      "bottom": 123
+    },
+    {
+      "text": "3",
+      "left": 981,
+      "top": 100,
+      "right": 996,
+      "bottom": 125
+    },
+    {
+      "text": "4",
+      "left": 1313,
+      "top": 100,
+      "right": 1328,
+      "bottom": 125
+    },
+    {
+      "text": "12.20-1. 10",
+      "left": 1921,
+      "top": 163,
+      "right": 2043,
+      "bottom": 197
+    },
+    {
+      "text": "3.20-4.10",
+      "left": 3013,
+      "top": 163,
+      "right": 3132,
+      "bottom": 197
+    },
+    {
+      "text": "900-9.50O",
+      "left": 627,
+      "top": 164,
+      "right": 755,
+      "bottom": 197
+    },
+    {
+      "text": "10.40-11.30",
+      "left": 1249,
+      "top": 165,
+      "right": 1389,
+      "bottom": 195
+    },
+    {
+      "text": "11:30-12.20",
+      "left": 1581,
+      "top": 165,
+      "right": 1720,
+      "bottom": 196
+    },
+    {
+      "text": "DayTime",
+      "left": 68,
+      "top": 166,
+      "right": 202,
+      "bottom": 196
+    },
+    {
+      "text": "4.10-5.00",
+      "left": 3309,
+      "top": 166,
+      "right": 3427,
+      "bottom": 194
+    },
+    {
+      "text": "8.10-9.00",
+      "left": 337,
+      "top": 168,
+      "right": 457,
+      "bottom": 194
+    },
+    {
+      "text": "9.50-10.40",
+      "left": 920,
+      "top": 168,
+      "right": 1057,
+      "bottom": 194
+    },
+    {
+      "text": "1.40",
+      "left": 2187,
+      "top": 168,
+      "right": 2238,
+      "bottom": 194
+    },
+    {
+      "text": "1.40-2.30",
+      "left": 2386,
+      "top": 168,
+      "right": 2506,
+      "bottom": 194
+    },
+    {
+      "text": "2.30-3.20",
+      "left": 2715,
+      "top": 168,
+      "right": 2840,
+      "bottom": 194
+    },
+    {
+      "text": "Data Structures Lab Dr. Neha Agrawal 831-",
+      "left": 1542,
+      "top": 202,
+      "right": 2135,
+      "bottom": 234
+    },
+    {
+      "text": "Digital Logic and",
+      "left": 2672,
+      "top": 202,
+      "right": 2901,
+      "bottom": 236
+    },
+    {
+      "text": "Discrete",
+      "left": 3011,
+      "top": 203,
+      "right": 3128,
+      "bottom": 230
+    },
+    {
+      "text": "Data Structures",
+      "left": 2332,
+      "top": 217,
+      "right": 2552,
+      "bottom": 250
+    },
+    {
+      "text": "Cornputer Design",
+      "left": 2667,
+      "top": 237,
+      "right": 2899,
+      "bottom": 273
+    },
+    {
+      "text": "Mathernatics",
+      "left": 2976,
+      "top": 238,
+      "right": 3170,
+      "bottom": 278
+    },
+    {
+      "text": "832",
+      "left": 1811,
+      "top": 240,
+      "right": 1859,
+      "bottom": 266
+    },
+    {
+      "text": "Monday",
+      "left": 77,
+      "top": 290,
+      "right": 187,
+      "bottom": 321
+    },
+    {
+      "text": "Data Structures Lab Dr. Meernu Garg 831-832",
+      "left": 1517,
+      "top": 290,
+      "right": 2152,
+      "bottom": 320
+    },
+    {
+      "text": "812",
+      "left": 2422,
+      "top": 290,
+      "right": 2464,
+      "bottom": 316
+    },
+    {
+      "text": "812",
+      "left": 2756,
+      "top": 290,
+      "right": 2798,
+      "bottom": 316
+    },
+    {
+      "text": "812",
+      "left": 3052,
+      "top": 290,
+      "right": 3094,
+      "bottom": 316
+    },
+    {
+      "text": "NCCINS9Sports NCCNS9Sports",
+      "left": 574,
+      "top": 303,
+      "right": 1103,
+      "bottom": 335
+    },
+    {
+      "text": "Lomputational lMethods Lab Dr. Surbhi Lata",
+      "left": 1536,
+      "top": 336,
+      "right": 2156,
+      "bottom": 372
+    },
+    {
+      "text": "vis. Abhilasha",
+      "left": 2686,
+      "top": 336,
+      "right": 2886,
+      "bottom": 374
+    },
+    {
+      "text": "Dr. Meernu Garg",
+      "left": 2329,
+      "top": 354,
+      "right": 2558,
+      "bottom": 390
+    },
+    {
+      "text": "Dr. Deepika Barnsal",
+      "left": 2936,
+      "top": 359,
+      "right": 3205,
+      "bottom": 388
+    },
+    {
+      "text": "831-832",
+      "left": 1774,
+      "top": 371,
+      "right": 1884,
+      "bottom": 412
+    },
+    {
+      "text": "GokhaleA",
+      "left": 2705,
+      "top": 381,
+      "right": 2841,
+      "bottom": 410
+    },
+    {
+      "text": "Ubjeci-Uriented",
+      "left": 876,
+      "top": 409,
+      "right": 1103,
+      "bottom": 437
+    },
+    {
+      "text": "Computational Digital Logic and",
+      "left": 1541,
+      "top": 409,
+      "right": 2110,
+      "bottom": 443
+    },
+    {
+      "text": "Discrete Mathernatics",
+      "left": 1166,
+      "top": 428,
+      "right": 1470,
+      "bottom": 454
+    },
+    {
+      "text": "Prograrnming",
+      "left": 889,
+      "top": 440,
+      "right": 1090,
+      "bottom": 478
+    },
+    {
+      "text": "Cornputer Design",
+      "left": 1879,
+      "top": 447,
+      "right": 2109,
+      "bottom": 481
+    },
+    {
+      "text": "Methods",
+      "left": 1581,
+      "top": 450,
+      "right": 1708,
+      "bottom": 482
+    },
+    {
+      "text": "Lomputational Methods Lab Dr. Satishn",
+      "left": 2317,
+      "top": 482,
+      "right": 2868,
+      "bottom": 509
+    },
+    {
+      "text": "Tuesday",
+      "left": 71,
+      "top": 494,
+      "right": 196,
+      "bottom": 528
+    },
+    {
+      "text": "843",
+      "left": 1296,
+      "top": 497,
+      "right": 1343,
+      "bottom": 523
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 497,
+      "right": 1676,
+      "bottom": 523
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 497,
+      "right": 2005,
+      "bottom": 523
+    },
+    {
+      "text": "843",
+      "left": 964,
+      "top": 514,
+      "right": 1008,
+      "bottom": 540
+    },
+    {
+      "text": "Verma 821-822",
+      "left": 2491,
+      "top": 516,
+      "right": 2697,
+      "bottom": 543
+    },
+    {
+      "text": "Dr. Bhaskar Kapoor",
+      "left": 848,
+      "top": 563,
+      "right": 1120,
+      "bottom": 597
+    },
+    {
+      "text": "Dr. Deepika Bansal",
+      "left": 1183,
+      "top": 566,
+      "right": 1452,
+      "bottom": 597
+    },
+    {
+      "text": "Dr. Satish Verma Ms. Abhilasha Gokhale",
+      "left": 1531,
+      "top": 566,
+      "right": 2149,
+      "bottom": 592
+    },
+    {
+      "text": "0bject-Oriented",
+      "left": 1531,
+      "top": 615,
+      "right": 1763,
+      "bottom": 652
+    },
+    {
+      "text": "Digital Logic and",
+      "left": 1863,
+      "top": 638,
+      "right": 2105,
+      "bottom": 669
+    },
+    {
+      "text": "Data Structures",
+      "left": 878,
+      "top": 655,
+      "right": 1097,
+      "bottom": 685
+    },
+    {
+      "text": "Discrete Mathernatics",
+      "left": 1166,
+      "top": 656,
+      "right": 1472,
+      "bottom": 683
+    },
+    {
+      "text": "Prograrnnming",
+      "left": 1554,
+      "top": 660,
+      "right": 1751,
+      "bottom": 691
+    },
+    {
+      "text": "Cornputer Design",
+      "left": 1858,
+      "top": 677,
+      "right": 2108,
+      "bottom": 708
+    },
+    {
+      "text": "LUN",
+      "left": 2178,
+      "top": 682,
+      "right": 2243,
+      "bottom": 708
+    },
+    {
+      "text": "using C++",
+      "left": 1584,
+      "top": 696,
+      "right": 1727,
+      "bottom": 733
+    },
+    {
+      "text": "2",
+      "left": 3,
+      "top": 697,
+      "right": 12,
+      "bottom": 722
+    },
+    {
+      "text": "Wednesday",
+      "left": 46,
+      "top": 722,
+      "right": 219,
+      "bottom": 756
+    },
+    {
+      "text": "CH",
+      "left": 2189,
+      "top": 724,
+      "right": 2235,
+      "bottom": 750
+    },
+    {
+      "text": "843",
+      "left": 965,
+      "top": 749,
+      "right": 1012,
+      "bottom": 775
+    },
+    {
+      "text": "843",
+      "left": 1296,
+      "top": 749,
+      "right": 1343,
+      "bottom": 775
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 749,
+      "right": 1676,
+      "bottom": 775
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 749,
+      "right": 2003,
+      "bottom": 775
+    },
+    {
+      "text": "NCCNSSGSports",
+      "left": 278,
+      "top": 762,
+      "right": 512,
+      "bottom": 796
+    },
+    {
+      "text": "BRE",
+      "left": 2178,
+      "top": 765,
+      "right": 2244,
+      "bottom": 791
+    },
+    {
+      "text": "AK",
+      "left": 2190,
+      "top": 807,
+      "right": 2227,
+      "bottom": 833
+    },
+    {
+      "text": "Dr. Bhaskar Kapoor Ms. Abhilasha Gokhale",
+      "left": 1512,
+      "top": 812,
+      "right": 2145,
+      "bottom": 847
+    },
+    {
+      "text": "Dr. Meernu Garg Dr. Deepika Bansal",
+      "left": 872,
+      "top": 814,
+      "right": 1451,
+      "bottom": 849
+    },
+    {
+      "text": "Digital Logic andCormputational IMethods",
+      "left": 1522,
+      "top": 866,
+      "right": 2146,
+      "bottom": 921
+    },
+    {
+      "text": "Lonputaional Miethods Lab Dr.Narender",
+      "left": 891,
+      "top": 868,
+      "right": 1461,
+      "bottom": 900
+    },
+    {
+      "text": "Ubject-Uriented Prograrnming usIing ++",
+      "left": 2295,
+      "top": 872,
+      "right": 2887,
+      "bottom": 899
+    },
+    {
+      "text": "Data Struuctures",
+      "left": 2964,
+      "top": 887,
+      "right": 3183,
+      "bottom": 913
+    },
+    {
+      "text": "Lab Dr. Bhaskar Kapoor 821-822",
+      "left": 2377,
+      "top": 901,
+      "right": 2827,
+      "bottom": 938
+    },
+    {
+      "text": "Cormputer Design",
+      "left": 1546,
+      "top": 905,
+      "right": 1780,
+      "bottom": 943
+    },
+    {
+      "text": "Kaushik 831-832",
+      "left": 1056,
+      "top": 906,
+      "right": 1286,
+      "bottom": 932
+    },
+    {
+      "text": "Ubject-Uriented Prograrnmıng LISIng Lt+",
+      "left": 2315,
+      "top": 940,
+      "right": 2888,
+      "bottom": 968
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 956,
+      "right": 1676,
+      "bottom": 982
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 956,
+      "right": 2004,
+      "bottom": 982
+    },
+    {
+      "text": "812",
+      "left": 3052,
+      "top": 956,
+      "right": 3094,
+      "bottom": 982
+    },
+    {
+      "text": "Lab Ajay Kaushik 821-822",
+      "left": 2418,
+      "top": 969,
+      "right": 2783,
+      "bottom": 1007
+    },
+    {
+      "text": "Thursday",
+      "left": 63,
+      "top": 970,
+      "right": 203,
+      "bottom": 1000
+    },
+    {
+      "text": "Object-Oriented Prograrnning using C++",
+      "left": 873,
+      "top": 1019,
+      "right": 1463,
+      "bottom": 1051
+    },
+    {
+      "text": "Ms. Abhilasha",
+      "left": 1547,
+      "top": 1019,
+      "right": 1749,
+      "bottom": 1050
+    },
+    {
+      "text": "Dr. Satish Verma",
+      "left": 1860,
+      "top": 1038,
+      "right": 2101,
+      "bottom": 1070
+    },
+    {
+      "text": "Data Structures Lab Dr. Meenu Garg 821-822 Dr. Meenu Garg",
+      "left": 2275,
+      "top": 1039,
+      "right": 3186,
+      "bottom": 1071
+    },
+    {
+      "text": "Lab Dr. Neha Singh 831-832",
+      "left": 973,
+      "top": 1058,
+      "right": 1369,
+      "bottom": 1089
+    },
+    {
+      "text": "Gokhale",
+      "left": 1592,
+      "top": 1061,
+      "right": 1709,
+      "bottom": 1087
+    },
+    {
+      "text": "AELpuer DesIgn Lab",
+      "left": 2499,
+      "top": 1096,
+      "right": 2875,
+      "bottom": 1162
+    },
+    {
+      "text": "Ubject-Uriented",
+      "left": 1201,
+      "top": 1105,
+      "right": 1435,
+      "bottom": 1139
+    },
+    {
+      "text": "DIgital Logic and Lomputer DesIgn Lab",
+      "left": 2323,
+      "top": 1105,
+      "right": 2874,
+      "bottom": 1140
+    },
+    {
+      "text": "Computational",
+      "left": 1541,
+      "top": 1107,
+      "right": 1746,
+      "bottom": 1139
+    },
+    {
+      "text": "Data Structures",
+      "left": 878,
+      "top": 1123,
+      "right": 1096,
+      "bottom": 1151
+    },
+    {
+      "text": "Discrete Mathernatics",
+      "left": 1830,
+      "top": 1124,
+      "right": 2134,
+      "bottom": 1151
+    },
+    {
+      "text": "427 Ms. Abhilasha Gokhale",
+      "left": 2397,
+      "top": 1144,
+      "right": 2786,
+      "bottom": 1170
+    },
+    {
+      "text": "Programnming using",
+      "left": 1191,
+      "top": 1147,
+      "right": 1469,
+      "bottom": 1180
+    },
+    {
+      "text": "MMethods",
+      "left": 1590,
+      "top": 1147,
+      "right": 1712,
+      "bottom": 1173
+    },
+    {
+      "text": "Digital Logic andComputer DesigrnLab",
+      "left": 2326,
+      "top": 1175,
+      "right": 2876,
+      "bottom": 1206
+    },
+    {
+      "text": "Library",
+      "left": 3021,
+      "top": 1192,
+      "right": 3122,
+      "bottom": 1224
+    },
+    {
+      "text": "Friday",
+      "left": 88,
+      "top": 1194,
+      "right": 176,
+      "bottom": 1225
+    },
+    {
+      "text": "843",
+      "left": 964,
+      "top": 1194,
+      "right": 1013,
+      "bottom": 1220
+    },
+    {
+      "text": "843",
+      "left": 1296,
+      "top": 1194,
+      "right": 1343,
+      "bottom": 1220
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 1194,
+      "right": 1676,
+      "bottom": 1220
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 1194,
+      "right": 2005,
+      "bottom": 1218
+    },
+    {
+      "text": "434 Mr. FRohit Uday Lakhane",
+      "left": 2391,
+      "top": 1208,
+      "right": 2792,
+      "bottom": 1242
+    },
+    {
+      "text": "Digital Logic and Lomputer Design Lab",
+      "left": 2329,
+      "top": 1248,
+      "right": 2872,
+      "bottom": 1277
+    },
+    {
+      "text": "Dr. Meernu Garg",
+      "left": 872,
+      "top": 1259,
+      "right": 1100,
+      "bottom": 1293
+    },
+    {
+      "text": "Dr. Bhaskar Kapoor",
+      "left": 1180,
+      "top": 1263,
+      "right": 1456,
+      "bottom": 1294
+    },
+    {
+      "text": "Dr. Satish Verma",
+      "left": 1531,
+      "top": 1263,
+      "right": 1770,
+      "bottom": 1289
+    },
+    {
+      "text": "Dr. Deepika Barnsal",
+      "left": 1846,
+      "top": 1263,
+      "right": 2116,
+      "bottom": 1294
+    },
+    {
+      "text": "433 Dr. Neerai",
+      "left": 2505,
+      "top": 1275,
+      "right": 2689,
+      "bottom": 1313
+    }
+  ],
+  "elements": [
+    {
+      "text": "Section:3T101112",
+      "left": 1612,
+      "top": 16,
+      "right": 1919,
+      "bottom": 45
+    },
+    {
+      "text": "3IT101112",
+      "left": 1755,
+      "top": 16,
+      "right": 1918,
+      "bottom": 45
+    },
+    {
+      "text": "1",
+      "left": 395,
+      "top": 99,
+      "right": 401,
+      "bottom": 119
+    },
+    {
+      "text": "2",
+      "left": 680,
+      "top": 99,
+      "right": 699,
+      "bottom": 133
+    },
+    {
+      "text": "5",
+      "left": 1644,
+      "top": 99,
+      "right": 1659,
+      "bottom": 124
+    },
+    {
+      "text": "6",
+      "left": 1977,
+      "top": 99,
+      "right": 1991,
+      "bottom": 125
+    },
+    {
+      "text": "7",
+      "left": 2439,
+      "top": 99,
+      "right": 2453,
+      "bottom": 123
+    },
+    {
+      "text": "8",
+      "left": 2771,
+      "top": 99,
+      "right": 2785,
+      "bottom": 125
+    },
+    {
+      "text": "9",
+      "left": 3066,
+      "top": 99,
+      "right": 3081,
+      "bottom": 124
+    },
+    {
+      "text": "10",
+      "left": 3356,
+      "top": 99,
+      "right": 3382,
+      "bottom": 123
+    },
+    {
+      "text": "3",
+      "left": 981,
+      "top": 100,
+      "right": 996,
+      "bottom": 125
+    },
+    {
+      "text": "4",
+      "left": 1313,
+      "top": 100,
+      "right": 1328,
+      "bottom": 125
+    },
+    {
+      "text": "3.20-4.10",
+      "left": 3013,
+      "top": 163,
+      "right": 3132,
+      "bottom": 197
+    },
+    {
+      "text": "900-9.50O",
+      "left": 627,
+      "top": 164,
+      "right": 755,
+      "bottom": 197
+    },
+    {
+      "text": "10.40-11.30",
+      "left": 1249,
+      "top": 165,
+      "right": 1389,
+      "bottom": 195
+    },
+    {
+      "text": "11:30-12.20",
+      "left": 1581,
+      "top": 165,
+      "right": 1720,
+      "bottom": 196
+    },
+    {
+      "text": "12.20-1.10",
+      "left": 1921,
+      "top": 165,
+      "right": 2044,
+      "bottom": 196
+    },
+    {
+      "text": "DayTime",
+      "left": 68,
+      "top": 166,
+      "right": 202,
+      "bottom": 196
+    },
+    {
+      "text": "4.10-5.00",
+      "left": 3309,
+      "top": 166,
+      "right": 3427,
+      "bottom": 194
+    },
+    {
+      "text": "8.10-9.00",
+      "left": 337,
+      "top": 168,
+      "right": 457,
+      "bottom": 194
+    },
+    {
+      "text": "9.50-10.40",
+      "left": 920,
+      "top": 168,
+      "right": 1057,
+      "bottom": 194
+    },
+    {
+      "text": "1.40",
+      "left": 2187,
+      "top": 168,
+      "right": 2238,
+      "bottom": 194
+    },
+    {
+      "text": "1.40-2.30",
+      "left": 2386,
+      "top": 168,
+      "right": 2506,
+      "bottom": 194
+    },
+    {
+      "text": "2.30-3.20",
+      "left": 2715,
+      "top": 168,
+      "right": 2840,
+      "bottom": 194
+    },
+    {
+      "text": "N",
+      "left": 1884,
+      "top": 201,
+      "right": 1892,
+      "bottom": 230
+    },
+    {
+      "text": "Data",
+      "left": 1542,
+      "top": 202,
+      "right": 1607,
+      "bottom": 234
+    },
+    {
+      "text": "Structures",
+      "left": 1617,
+      "top": 202,
+      "right": 1753,
+      "bottom": 234
+    },
+    {
+      "text": "Lab",
+      "left": 1766,
+      "top": 202,
+      "right": 1818,
+      "bottom": 234
+    },
+    {
+      "text": "Dr.",
+      "left": 1840,
+      "top": 202,
+      "right": 1863,
+      "bottom": 234
+    },
+    {
+      "text": "Neha",
+      "left": 1894,
+      "top": 202,
+      "right": 1958,
+      "bottom": 234
+    },
+    {
+      "text": "Agrawal",
+      "left": 1972,
+      "top": 202,
+      "right": 2071,
+      "bottom": 234
+    },
+    {
+      "text": "831",
+      "left": 2094,
+      "top": 202,
+      "right": 2131,
+      "bottom": 234
+    },
+    {
+      "text": "Digital",
+      "left": 2672,
+      "top": 202,
+      "right": 2747,
+      "bottom": 236
+    },
+    {
+      "text": "Logic",
+      "left": 2765,
+      "top": 202,
+      "right": 2840,
+      "bottom": 236
+    },
+    {
+      "text": "and",
+      "left": 2855,
+      "top": 202,
+      "right": 2901,
+      "bottom": 236
+    },
+    {
+      "text": "Discrete",
+      "left": 3011,
+      "top": 203,
+      "right": 3128,
+      "bottom": 230
+    },
+    {
+      "text": "Data",
+      "left": 2332,
+      "top": 217,
+      "right": 2395,
+      "bottom": 246
+    },
+    {
+      "text": "Structures",
+      "left": 2404,
+      "top": 219,
+      "right": 2552,
+      "bottom": 250
+    },
+    {
+      "text": "Design",
+      "left": 2814,
+      "top": 236,
+      "right": 2905,
+      "bottom": 271
+    },
+    {
+      "text": "Cornputer",
+      "left": 2667,
+      "top": 238,
+      "right": 2792,
+      "bottom": 273
+    },
+    {
+      "text": "Mathernatics",
+      "left": 2976,
+      "top": 238,
+      "right": 3170,
+      "bottom": 278
+    },
+    {
+      "text": "832",
+      "left": 1811,
+      "top": 240,
+      "right": 1859,
+      "bottom": 266
+    },
+    {
+      "text": "Monday",
+      "left": 77,
+      "top": 290,
+      "right": 187,
+      "bottom": 321
+    },
+    {
+      "text": "Data",
+      "left": 1517,
+      "top": 290,
+      "right": 1579,
+      "bottom": 321
+    },
+    {
+      "text": "Structures",
+      "left": 1589,
+      "top": 290,
+      "right": 1737,
+      "bottom": 321
+    },
+    {
+      "text": "Lab",
+      "left": 1747,
+      "top": 290,
+      "right": 1801,
+      "bottom": 321
+    },
+    {
+      "text": "Dr.",
+      "left": 1811,
+      "top": 290,
+      "right": 1848,
+      "bottom": 321
+    },
+    {
+      "text": "Meernu",
+      "left": 1860,
+      "top": 290,
+      "right": 1958,
+      "bottom": 320
+    },
+    {
+      "text": "Garg",
+      "left": 1968,
+      "top": 290,
+      "right": 2038,
+      "bottom": 321
+    },
+    {
+      "text": "831-832",
+      "left": 2048,
+      "top": 290,
+      "right": 2152,
+      "bottom": 321
+    },
+    {
+      "text": "812",
+      "left": 2422,
+      "top": 290,
+      "right": 2464,
+      "bottom": 316
+    },
+    {
+      "text": "812",
+      "left": 2756,
+      "top": 290,
+      "right": 2798,
+      "bottom": 316
+    },
+    {
+      "text": "812",
+      "left": 3052,
+      "top": 290,
+      "right": 3094,
+      "bottom": 316
+    },
+    {
+      "text": "NCCNSSISports",
+      "left": 871,
+      "top": 304,
+      "right": 1107,
+      "bottom": 337
+    },
+    {
+      "text": "NCCINS9Sports",
+      "left": 575,
+      "top": 306,
+      "right": 811,
+      "bottom": 335
+    },
+    {
+      "text": "Surbhi",
+      "left": 1997,
+      "top": 336,
+      "right": 2080,
+      "bottom": 372
+    },
+    {
+      "text": "vis.",
+      "left": 2686,
+      "top": 336,
+      "right": 2725,
+      "bottom": 369
+    },
+    {
+      "text": "lMetfhods",
+      "left": 1733,
+      "top": 337,
+      "right": 1862,
+      "bottom": 372
+    },
+    {
+      "text": "Lab",
+      "left": 1879,
+      "top": 337,
+      "right": 1928,
+      "bottom": 372
+    },
+    {
+      "text": "Dr.",
+      "left": 1946,
+      "top": 337,
+      "right": 1972,
+      "bottom": 372
+    },
+    {
+      "text": "Lata",
+      "left": 2102,
+      "top": 337,
+      "right": 2157,
+      "bottom": 372
+    },
+    {
+      "text": "Abhilasha",
+      "left": 2745,
+      "top": 338,
+      "right": 2886,
+      "bottom": 373
+    },
+    {
+      "text": "Cornputational",
+      "left": 1541,
+      "top": 339,
+      "right": 1727,
+      "bottom": 370
+    },
+    {
+      "text": "Dr.",
+      "left": 2330,
+      "top": 353,
+      "right": 2366,
+      "bottom": 384
+    },
+    {
+      "text": "Meernu",
+      "left": 2379,
+      "top": 355,
+      "right": 2479,
+      "bottom": 388
+    },
+    {
+      "text": "Garg",
+      "left": 2487,
+      "top": 357,
+      "right": 2558,
+      "bottom": 388
+    },
+    {
+      "text": "Dr.",
+      "left": 2936,
+      "top": 359,
+      "right": 2973,
+      "bottom": 388
+    },
+    {
+      "text": "Deepika",
+      "left": 2986,
+      "top": 359,
+      "right": 3100,
+      "bottom": 388
+    },
+    {
+      "text": "Barnsal",
+      "left": 3110,
+      "top": 359,
+      "right": 3205,
+      "bottom": 388
+    },
+    {
+      "text": "831-832",
+      "left": 1774,
+      "top": 371,
+      "right": 1884,
+      "bottom": 412
+    },
+    {
+      "text": "GokhaleA",
+      "left": 2705,
+      "top": 381,
+      "right": 2841,
+      "bottom": 410
+    },
+    {
+      "text": "Ubjeci-Uriented",
+      "left": 876,
+      "top": 409,
+      "right": 1103,
+      "bottom": 437
+    },
+    {
+      "text": "Digital",
+      "left": 1879,
+      "top": 409,
+      "right": 1954,
+      "bottom": 443
+    },
+    {
+      "text": "Logic",
+      "left": 1965,
+      "top": 409,
+      "right": 2048,
+      "bottom": 443
+    },
+    {
+      "text": "and",
+      "left": 2063,
+      "top": 409,
+      "right": 2110,
+      "bottom": 443
+    },
+    {
+      "text": "D",
+      "left": 1862,
+      "top": 411,
+      "right": 1882,
+      "bottom": 437
+    },
+    {
+      "text": "Cormputational",
+      "left": 1548,
+      "top": 412,
+      "right": 1750,
+      "bottom": 444
+    },
+    {
+      "text": "Discrete",
+      "left": 1166,
+      "top": 428,
+      "right": 1281,
+      "bottom": 454
+    },
+    {
+      "text": "Mathernatics",
+      "left": 1291,
+      "top": 428,
+      "right": 1470,
+      "bottom": 454
+    },
+    {
+      "text": "Prograrnming",
+      "left": 889,
+      "top": 440,
+      "right": 1090,
+      "bottom": 478
+    },
+    {
+      "text": "Cornputer",
+      "left": 1879,
+      "top": 447,
+      "right": 2000,
+      "bottom": 481
+    },
+    {
+      "text": "Design",
+      "left": 2020,
+      "top": 449,
+      "right": 2105,
+      "bottom": 479
+    },
+    {
+      "text": "Methods",
+      "left": 1581,
+      "top": 450,
+      "right": 1708,
+      "bottom": 482
+    },
+    {
+      "text": "LabDr.",
+      "left": 2668,
+      "top": 475,
+      "right": 2768,
+      "bottom": 508
+    },
+    {
+      "text": "lMethods",
+      "left": 2528,
+      "top": 476,
+      "right": 2657,
+      "bottom": 508
+    },
+    {
+      "text": "Cornputational",
+      "left": 2333,
+      "top": 477,
+      "right": 2526,
+      "bottom": 509
+    },
+    {
+      "text": "Satishn",
+      "left": 2778,
+      "top": 482,
+      "right": 2868,
+      "bottom": 509
+    },
+    {
+      "text": "Tuesday",
+      "left": 71,
+      "top": 494,
+      "right": 196,
+      "bottom": 528
+    },
+    {
+      "text": "843",
+      "left": 1296,
+      "top": 497,
+      "right": 1343,
+      "bottom": 523
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 497,
+      "right": 1676,
+      "bottom": 523
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 497,
+      "right": 2005,
+      "bottom": 523
+    },
+    {
+      "text": "843",
+      "left": 964,
+      "top": 514,
+      "right": 1008,
+      "bottom": 540
+    },
+    {
+      "text": "Verma",
+      "left": 2491,
+      "top": 516,
+      "right": 2583,
+      "bottom": 543
+    },
+    {
+      "text": "821-822",
+      "left": 2593,
+      "top": 516,
+      "right": 2697,
+      "bottom": 543
+    },
+    {
+      "text": "Dr.",
+      "left": 1531,
+      "top": 560,
+      "right": 1569,
+      "bottom": 597
+    },
+    {
+      "text": "Satish",
+      "left": 1599,
+      "top": 560,
+      "right": 1673,
+      "bottom": 597
+    },
+    {
+      "text": "VermaMs.",
+      "left": 1698,
+      "top": 560,
+      "right": 1866,
+      "bottom": 597
+    },
+    {
+      "text": "Abhilasha",
+      "left": 1893,
+      "top": 560,
+      "right": 2028,
+      "bottom": 597
+    },
+    {
+      "text": "Gokhale",
+      "left": 2036,
+      "top": 560,
+      "right": 2153,
+      "bottom": 597
+    },
+    {
+      "text": "Dr.",
+      "left": 848,
+      "top": 564,
+      "right": 884,
+      "bottom": 594
+    },
+    {
+      "text": "Bhaskar",
+      "left": 898,
+      "top": 564,
+      "right": 1014,
+      "bottom": 596
+    },
+    {
+      "text": "Kapoor",
+      "left": 1024,
+      "top": 565,
+      "right": 1120,
+      "bottom": 597
+    },
+    {
+      "text": "Dr.",
+      "left": 1183,
+      "top": 566,
+      "right": 1220,
+      "bottom": 597
+    },
+    {
+      "text": "Deepika",
+      "left": 1233,
+      "top": 566,
+      "right": 1347,
+      "bottom": 597
+    },
+    {
+      "text": "Bansal",
+      "left": 1357,
+      "top": 566,
+      "right": 1452,
+      "bottom": 597
+    },
+    {
+      "text": "0bject-Oriented",
+      "left": 1531,
+      "top": 615,
+      "right": 1763,
+      "bottom": 652
+    },
+    {
+      "text": "Digital",
+      "left": 1863,
+      "top": 638,
+      "right": 1950,
+      "bottom": 669
+    },
+    {
+      "text": "Logic",
+      "left": 1963,
+      "top": 638,
+      "right": 2041,
+      "bottom": 669
+    },
+    {
+      "text": "and",
+      "left": 2051,
+      "top": 638,
+      "right": 2105,
+      "bottom": 669
+    },
+    {
+      "text": "Data",
+      "left": 878,
+      "top": 656,
+      "right": 940,
+      "bottom": 683
+    },
+    {
+      "text": "Structures",
+      "left": 950,
+      "top": 656,
+      "right": 1097,
+      "bottom": 685
+    },
+    {
+      "text": "Mathernatics",
+      "left": 1291,
+      "top": 656,
+      "right": 1472,
+      "bottom": 683
+    },
+    {
+      "text": "Discrete",
+      "left": 1166,
+      "top": 658,
+      "right": 1281,
+      "bottom": 683
+    },
+    {
+      "text": "Prograrnnming",
+      "left": 1554,
+      "top": 660,
+      "right": 1751,
+      "bottom": 691
+    },
+    {
+      "text": "Cornputer",
+      "left": 1858,
+      "top": 677,
+      "right": 1997,
+      "bottom": 708
+    },
+    {
+      "text": "Design",
+      "left": 2007,
+      "top": 677,
+      "right": 2108,
+      "bottom": 708
+    },
+    {
+      "text": "LUN",
+      "left": 2178,
+      "top": 682,
+      "right": 2243,
+      "bottom": 708
+    },
+    {
+      "text": "ISinaC++",
+      "left": 1589,
+      "top": 695,
+      "right": 1721,
+      "bottom": 721
+    },
+    {
+      "text": "C++",
+      "left": 1672,
+      "top": 696,
+      "right": 1727,
+      "bottom": 730
+    },
+    {
+      "text": "2",
+      "left": 3,
+      "top": 697,
+      "right": 12,
+      "bottom": 722
+    },
+    {
+      "text": "Wednesday",
+      "left": 46,
+      "top": 722,
+      "right": 219,
+      "bottom": 756
+    },
+    {
+      "text": "CH",
+      "left": 2189,
+      "top": 724,
+      "right": 2235,
+      "bottom": 750
+    },
+    {
+      "text": "843",
+      "left": 965,
+      "top": 749,
+      "right": 1012,
+      "bottom": 775
+    },
+    {
+      "text": "843",
+      "left": 1296,
+      "top": 749,
+      "right": 1343,
+      "bottom": 775
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 749,
+      "right": 1676,
+      "bottom": 775
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 749,
+      "right": 2003,
+      "bottom": 775
+    },
+    {
+      "text": "NCCNSSGSports",
+      "left": 278,
+      "top": 762,
+      "right": 512,
+      "bottom": 796
+    },
+    {
+      "text": "BRE",
+      "left": 2178,
+      "top": 765,
+      "right": 2244,
+      "bottom": 791
+    },
+    {
+      "text": "AK",
+      "left": 2190,
+      "top": 807,
+      "right": 2227,
+      "bottom": 833
+    },
+    {
+      "text": "Dr.",
+      "left": 1512,
+      "top": 812,
+      "right": 1549,
+      "bottom": 847
+    },
+    {
+      "text": "Bhaskar",
+      "left": 1562,
+      "top": 812,
+      "right": 1679,
+      "bottom": 847
+    },
+    {
+      "text": "Kapoor",
+      "left": 1701,
+      "top": 812,
+      "right": 1795,
+      "bottom": 847
+    },
+    {
+      "text": "Ms.",
+      "left": 1816,
+      "top": 812,
+      "right": 1864,
+      "bottom": 847
+    },
+    {
+      "text": "Abhilasha",
+      "left": 1877,
+      "top": 812,
+      "right": 2022,
+      "bottom": 847
+    },
+    {
+      "text": "Gokhale",
+      "left": 2032,
+      "top": 812,
+      "right": 2145,
+      "bottom": 847
+    },
+    {
+      "text": "Dr.",
+      "left": 872,
+      "top": 814,
+      "right": 910,
+      "bottom": 844
+    },
+    {
+      "text": "Meernu",
+      "left": 922,
+      "top": 816,
+      "right": 1022,
+      "bottom": 846
+    },
+    {
+      "text": "Garg",
+      "left": 1030,
+      "top": 817,
+      "right": 1101,
+      "bottom": 847
+    },
+    {
+      "text": "Dr.",
+      "left": 1183,
+      "top": 818,
+      "right": 1220,
+      "bottom": 849
+    },
+    {
+      "text": "Deepika",
+      "left": 1233,
+      "top": 818,
+      "right": 1347,
+      "bottom": 849
+    },
+    {
+      "text": "Bansal",
+      "left": 1357,
+      "top": 818,
+      "right": 1452,
+      "bottom": 849
+    },
+    {
+      "text": "Digital",
+      "left": 1522,
+      "top": 866,
+      "right": 1618,
+      "bottom": 903
+    },
+    {
+      "text": "Lab",
+      "left": 1230,
+      "top": 867,
+      "right": 1287,
+      "bottom": 898
+    },
+    {
+      "text": "Dr.Narender",
+      "left": 1306,
+      "top": 867,
+      "right": 1464,
+      "bottom": 898
+    },
+    {
+      "text": "Miethods",
+      "left": 1108,
+      "top": 868,
+      "right": 1226,
+      "bottom": 900
+    },
+    {
+      "text": "Ubject-UrientedProgramming",
+      "left": 2316,
+      "top": 868,
+      "right": 2736,
+      "bottom": 898
+    },
+    {
+      "text": "Logic",
+      "left": 1636,
+      "top": 870,
+      "right": 1715,
+      "bottom": 906
+    },
+    {
+      "text": "Ltt",
+      "left": 2843,
+      "top": 870,
+      "right": 2892,
+      "bottom": 900
+    },
+    {
+      "text": "Lomputational",
+      "left": 879,
+      "top": 872,
+      "right": 1081,
+      "bottom": 900
+    },
+    {
+      "text": "usIing",
+      "left": 2740,
+      "top": 872,
+      "right": 2821,
+      "bottom": 899
+    },
+    {
+      "text": "andCormputational",
+      "left": 1728,
+      "top": 873,
+      "right": 2015,
+      "bottom": 916
+    },
+    {
+      "text": "IMethods",
+      "left": 2028,
+      "top": 884,
+      "right": 2146,
+      "bottom": 922
+    },
+    {
+      "text": "Data",
+      "left": 2964,
+      "top": 887,
+      "right": 3025,
+      "bottom": 913
+    },
+    {
+      "text": "Struuctures",
+      "left": 3035,
+      "top": 887,
+      "right": 3183,
+      "bottom": 913
+    },
+    {
+      "text": "Lab",
+      "left": 2377,
+      "top": 901,
+      "right": 2427,
+      "bottom": 938
+    },
+    {
+      "text": "Dr.",
+      "left": 2447,
+      "top": 901,
+      "right": 2473,
+      "bottom": 938
+    },
+    {
+      "text": "Bhaskar",
+      "left": 2493,
+      "top": 901,
+      "right": 2596,
+      "bottom": 938
+    },
+    {
+      "text": "Kapoor",
+      "left": 2616,
+      "top": 901,
+      "right": 2713,
+      "bottom": 938
+    },
+    {
+      "text": "821-822",
+      "left": 2729,
+      "top": 901,
+      "right": 2827,
+      "bottom": 938
+    },
+    {
+      "text": "Cormputer",
+      "left": 1546,
+      "top": 905,
+      "right": 1671,
+      "bottom": 943
+    },
+    {
+      "text": "Desiqn",
+      "left": 1686,
+      "top": 905,
+      "right": 1780,
+      "bottom": 942
+    },
+    {
+      "text": "Kaushik",
+      "left": 1056,
+      "top": 906,
+      "right": 1173,
+      "bottom": 932
+    },
+    {
+      "text": "831-832",
+      "left": 1183,
+      "top": 906,
+      "right": 1286,
+      "bottom": 932
+    },
+    {
+      "text": "Jbject-UrnentedPrograrnming",
+      "left": 2319,
+      "top": 938,
+      "right": 2735,
+      "bottom": 967
+    },
+    {
+      "text": "LISIng",
+      "left": 2740,
+      "top": 940,
+      "right": 2823,
+      "bottom": 968
+    },
+    {
+      "text": "Lt+",
+      "left": 2831,
+      "top": 940,
+      "right": 2888,
+      "bottom": 968
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 956,
+      "right": 1676,
+      "bottom": 982
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 956,
+      "right": 2004,
+      "bottom": 982
+    },
+    {
+      "text": "812",
+      "left": 3052,
+      "top": 956,
+      "right": 3094,
+      "bottom": 982
+    },
+    {
+      "text": "Lab",
+      "left": 2418,
+      "top": 969,
+      "right": 2463,
+      "bottom": 1007
+    },
+    {
+      "text": "Ajay",
+      "left": 2489,
+      "top": 969,
+      "right": 2543,
+      "bottom": 1007
+    },
+    {
+      "text": "Kaushik",
+      "left": 2561,
+      "top": 969,
+      "right": 2670,
+      "bottom": 1007
+    },
+    {
+      "text": "821-822",
+      "left": 2682,
+      "top": 969,
+      "right": 2783,
+      "bottom": 1007
+    },
+    {
+      "text": "Thursday",
+      "left": 63,
+      "top": 970,
+      "right": 203,
+      "bottom": 1000
+    },
+    {
+      "text": "Object-Oriented",
+      "left": 872,
+      "top": 1015,
+      "right": 1100,
+      "bottom": 1049
+    },
+    {
+      "text": "Prograrnning",
+      "left": 1111,
+      "top": 1019,
+      "right": 1308,
+      "bottom": 1051
+    },
+    {
+      "text": "using",
+      "left": 1318,
+      "top": 1019,
+      "right": 1399,
+      "bottom": 1051
+    },
+    {
+      "text": "Ms.",
+      "left": 1547,
+      "top": 1019,
+      "right": 1595,
+      "bottom": 1048
+    },
+    {
+      "text": "C++",
+      "left": 1409,
+      "top": 1020,
+      "right": 1462,
+      "bottom": 1052
+    },
+    {
+      "text": "Abhilasha",
+      "left": 1608,
+      "top": 1020,
+      "right": 1749,
+      "bottom": 1050
+    },
+    {
+      "text": "Dr.",
+      "left": 1860,
+      "top": 1039,
+      "right": 1896,
+      "bottom": 1067
+    },
+    {
+      "text": "Satish",
+      "left": 1909,
+      "top": 1039,
+      "right": 1999,
+      "bottom": 1069
+    },
+    {
+      "text": "Data",
+      "left": 2275,
+      "top": 1039,
+      "right": 2337,
+      "bottom": 1071
+    },
+    {
+      "text": "Structures",
+      "left": 2347,
+      "top": 1039,
+      "right": 2495,
+      "bottom": 1071
+    },
+    {
+      "text": "Lab",
+      "left": 2505,
+      "top": 1039,
+      "right": 2558,
+      "bottom": 1071
+    },
+    {
+      "text": "Dr.",
+      "left": 2568,
+      "top": 1039,
+      "right": 2605,
+      "bottom": 1071
+    },
+    {
+      "text": "Meenu",
+      "left": 2618,
+      "top": 1039,
+      "right": 2716,
+      "bottom": 1071
+    },
+    {
+      "text": "Garg",
+      "left": 2726,
+      "top": 1039,
+      "right": 2796,
+      "bottom": 1071
+    },
+    {
+      "text": "821-822",
+      "left": 2806,
+      "top": 1039,
+      "right": 2909,
+      "bottom": 1071
+    },
+    {
+      "text": "Dr.",
+      "left": 2958,
+      "top": 1039,
+      "right": 2995,
+      "bottom": 1071
+    },
+    {
+      "text": "Meernu",
+      "left": 3007,
+      "top": 1039,
+      "right": 3107,
+      "bottom": 1071
+    },
+    {
+      "text": "Garg",
+      "left": 3116,
+      "top": 1039,
+      "right": 3186,
+      "bottom": 1071
+    },
+    {
+      "text": "Verma",
+      "left": 2008,
+      "top": 1040,
+      "right": 2101,
+      "bottom": 1070
+    },
+    {
+      "text": "Lab",
+      "left": 973,
+      "top": 1058,
+      "right": 1026,
+      "bottom": 1089
+    },
+    {
+      "text": "Dr.",
+      "left": 1037,
+      "top": 1058,
+      "right": 1073,
+      "bottom": 1089
+    },
+    {
+      "text": "Neha",
+      "left": 1086,
+      "top": 1058,
+      "right": 1159,
+      "bottom": 1089
+    },
+    {
+      "text": "Singh",
+      "left": 1169,
+      "top": 1058,
+      "right": 1256,
+      "bottom": 1089
+    },
+    {
+      "text": "831-832",
+      "left": 1266,
+      "top": 1058,
+      "right": 1369,
+      "bottom": 1089
+    },
+    {
+      "text": "Gokhale",
+      "left": 1592,
+      "top": 1061,
+      "right": 1709,
+      "bottom": 1087
+    },
+    {
+      "text": "Lab",
+      "left": 2821,
+      "top": 1097,
+      "right": 2875,
+      "bottom": 1135
+    },
+    {
+      "text": "DesIgn",
+      "left": 2727,
+      "top": 1101,
+      "right": 2815,
+      "bottom": 1143
+    },
+    {
+      "text": "Digital",
+      "left": 2324,
+      "top": 1103,
+      "right": 2403,
+      "bottom": 1139
+    },
+    {
+      "text": "LOgic",
+      "left": 2411,
+      "top": 1103,
+      "right": 2490,
+      "bottom": 1136
+    },
+    {
+      "text": "and",
+      "left": 2507,
+      "top": 1104,
+      "right": 2559,
+      "bottom": 1137
+    },
+    {
+      "text": "Ubject-Uriented",
+      "left": 1201,
+      "top": 1105,
+      "right": 1435,
+      "bottom": 1139
+    },
+    {
+      "text": "andLomputer",
+      "left": 2509,
+      "top": 1106,
+      "right": 2698,
+      "bottom": 1137
+    },
+    {
+      "text": "Computational",
+      "left": 1541,
+      "top": 1107,
+      "right": 1746,
+      "bottom": 1139
+    },
+    {
+      "text": "Data",
+      "left": 878,
+      "top": 1124,
+      "right": 940,
+      "bottom": 1150
+    },
+    {
+      "text": "Structures",
+      "left": 950,
+      "top": 1124,
+      "right": 1096,
+      "bottom": 1152
+    },
+    {
+      "text": "Mathernatics",
+      "left": 1955,
+      "top": 1124,
+      "right": 2134,
+      "bottom": 1151
+    },
+    {
+      "text": "Discrete",
+      "left": 1830,
+      "top": 1125,
+      "right": 1944,
+      "bottom": 1151
+    },
+    {
+      "text": "427",
+      "left": 2397,
+      "top": 1144,
+      "right": 2445,
+      "bottom": 1170
+    },
+    {
+      "text": "Ms.",
+      "left": 2455,
+      "top": 1144,
+      "right": 2497,
+      "bottom": 1170
+    },
+    {
+      "text": "Abhilasha",
+      "left": 2516,
+      "top": 1144,
+      "right": 2660,
+      "bottom": 1170
+    },
+    {
+      "text": "Gokhale",
+      "left": 2671,
+      "top": 1144,
+      "right": 2788,
+      "bottom": 1170
+    },
+    {
+      "text": "Programnming",
+      "left": 1191,
+      "top": 1147,
+      "right": 1382,
+      "bottom": 1180
+    },
+    {
+      "text": "using",
+      "left": 1398,
+      "top": 1147,
+      "right": 1469,
+      "bottom": 1180
+    },
+    {
+      "text": "MMethods",
+      "left": 1590,
+      "top": 1147,
+      "right": 1712,
+      "bottom": 1173
+    },
+    {
+      "text": "Digital",
+      "left": 2326,
+      "top": 1175,
+      "right": 2400,
+      "bottom": 1206
+    },
+    {
+      "text": "Logic",
+      "left": 2415,
+      "top": 1175,
+      "right": 2491,
+      "bottom": 1206
+    },
+    {
+      "text": "andComputer",
+      "left": 2509,
+      "top": 1175,
+      "right": 2700,
+      "bottom": 1206
+    },
+    {
+      "text": "DesigrnLab",
+      "left": 2726,
+      "top": 1175,
+      "right": 2876,
+      "bottom": 1206
+    },
+    {
+      "text": "Library",
+      "left": 3021,
+      "top": 1192,
+      "right": 3122,
+      "bottom": 1224
+    },
+    {
+      "text": "Friday",
+      "left": 88,
+      "top": 1194,
+      "right": 176,
+      "bottom": 1225
+    },
+    {
+      "text": "843",
+      "left": 964,
+      "top": 1194,
+      "right": 1013,
+      "bottom": 1220
+    },
+    {
+      "text": "843",
+      "left": 1296,
+      "top": 1194,
+      "right": 1343,
+      "bottom": 1220
+    },
+    {
+      "text": "843",
+      "left": 1628,
+      "top": 1194,
+      "right": 1676,
+      "bottom": 1220
+    },
+    {
+      "text": "843",
+      "left": 1957,
+      "top": 1194,
+      "right": 2005,
+      "bottom": 1218
+    },
+    {
+      "text": "FRohit",
+      "left": 2504,
+      "top": 1209,
+      "right": 2578,
+      "bottom": 1239
+    },
+    {
+      "text": "434",
+      "left": 2392,
+      "top": 1210,
+      "right": 2438,
+      "bottom": 1238
+    },
+    {
+      "text": "Mir.",
+      "left": 2449,
+      "top": 1210,
+      "right": 2492,
+      "bottom": 1242
+    },
+    {
+      "text": "JdayLakhane",
+      "left": 2601,
+      "top": 1210,
+      "right": 2794,
+      "bottom": 1245
+    },
+    {
+      "text": "Lakhane",
+      "left": 2670,
+      "top": 1212,
+      "right": 2792,
+      "bottom": 1242
+    },
+    {
+      "text": "Digital",
+      "left": 2322,
+      "top": 1240,
+      "right": 2404,
+      "bottom": 1274
+    },
+    {
+      "text": "LogIc",
+      "left": 2417,
+      "top": 1242,
+      "right": 2492,
+      "bottom": 1276
+    },
+    {
+      "text": "Computer",
+      "left": 2567,
+      "top": 1242,
+      "right": 2705,
+      "bottom": 1276
+    },
+    {
+      "text": "Design",
+      "left": 2723,
+      "top": 1242,
+      "right": 2814,
+      "bottom": 1276
+    },
+    {
+      "text": "Lab",
+      "left": 2830,
+      "top": 1242,
+      "right": 2877,
+      "bottom": 1276
+    },
+    {
+      "text": "andLomputer",
+      "left": 2508,
+      "top": 1245,
+      "right": 2704,
+      "bottom": 1276
+    },
+    {
+      "text": "Dr.",
+      "left": 873,
+      "top": 1255,
+      "right": 909,
+      "bottom": 1293
+    },
+    {
+      "text": "Garg",
+      "left": 1030,
+      "top": 1258,
+      "right": 1100,
+      "bottom": 1297
+    },
+    {
+      "text": "Meernu",
+      "left": 922,
+      "top": 1260,
+      "right": 1023,
+      "bottom": 1291
+    },
+    {
+      "text": "Dr.",
+      "left": 1180,
+      "top": 1263,
+      "right": 1217,
+      "bottom": 1294
+    },
+    {
+      "text": "Bhaskar",
+      "left": 1230,
+      "top": 1263,
+      "right": 1347,
+      "bottom": 1294
+    },
+    {
+      "text": "Kapoor",
+      "left": 1357,
+      "top": 1263,
+      "right": 1456,
+      "bottom": 1294
+    },
+    {
+      "text": "Dr.",
+      "left": 1531,
+      "top": 1263,
+      "right": 1568,
+      "bottom": 1289
+    },
+    {
+      "text": "Satish",
+      "left": 1581,
+      "top": 1263,
+      "right": 1671,
+      "bottom": 1289
+    },
+    {
+      "text": "Verma",
+      "left": 1681,
+      "top": 1263,
+      "right": 1770,
+      "bottom": 1289
+    },
+    {
+      "text": "Dr.",
+      "left": 1846,
+      "top": 1263,
+      "right": 1883,
+      "bottom": 1294
+    },
+    {
+      "text": "Deepika",
+      "left": 1896,
+      "top": 1263,
+      "right": 2011,
+      "bottom": 1294
+    },
+    {
+      "text": "Barnsal",
+      "left": 2021,
+      "top": 1263,
+      "right": 2116,
+      "bottom": 1294
+    },
+    {
+      "text": "433",
+      "left": 2505,
+      "top": 1275,
+      "right": 2548,
+      "bottom": 1313
+    },
+    {
+      "text": "Dr.",
+      "left": 2559,
+      "top": 1275,
+      "right": 2595,
+      "bottom": 1313
+    },
+    {
+      "text": "Neerai",
+      "left": 2619,
+      "top": 1275,
+      "right": 2689,
+      "bottom": 1313
+    }
+  ],
+  "gridVerticalLines": [
+    17,
+    245,
+    543,
+    839,
+    1134,
+    1502,
+    1798,
+    2161,
+    2256,
+    2627,
+    2924,
+    3219,
+    3514
+  ],
+  "gridHorizontalLines": [
+    0,
+    63,
+    134,
+    201,
+    272,
+    341,
+    410,
+    479,
+    548,
+    617,
+    731,
+    800,
+    869,
+    938,
+    1007,
+    1107,
+    1176,
+    1245,
+    1312,
+    1359
+  ],
+  "gridCells": [
+    {
+      "left": 17,
+      "top": 0,
+      "right": 3514,
+      "bottom": 63,
+      "text": "Section: 3IT101112",
+      "lines": [
+        {
+          "text": "Section: 3IT101112",
+          "left": 1612,
+          "top": 16,
+          "right": 1919,
+          "bottom": 45
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 17,
+      "top": 63,
+      "right": 245,
+      "bottom": 201,
+      "text": "DayTime",
+      "lines": [
+        {
+          "text": "DayTime",
+          "left": 69,
+          "top": 168,
+          "right": 203,
+          "bottom": 198
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 63,
+      "right": 543,
+      "bottom": 134,
+      "text": "1",
+      "lines": [
+        {
+          "text": "1",
+          "left": 392,
+          "top": 99,
+          "right": 402,
+          "bottom": 125
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 543,
+      "top": 63,
+      "right": 839,
+      "bottom": 134,
+      "text": "2",
+      "lines": [
+        {
+          "text": "2",
+          "left": 683,
+          "top": 100,
+          "right": 700,
+          "bottom": 128
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 839,
+      "top": 63,
+      "right": 1134,
+      "bottom": 134,
+      "text": "3",
+      "lines": [
+        {
+          "text": "3",
+          "left": 981,
+          "top": 99,
+          "right": 996,
+          "bottom": 125
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 63,
+      "right": 1502,
+      "bottom": 134,
+      "text": "4",
+      "lines": [
+        {
+          "text": "4",
+          "left": 1314,
+          "top": 99,
+          "right": 1328,
+          "bottom": 124
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 63,
+      "right": 1798,
+      "bottom": 134,
+      "text": "5",
+      "lines": [
+        {
+          "text": "5",
+          "left": 1645,
+          "top": 99,
+          "right": 1660,
+          "bottom": 125
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 63,
+      "right": 2161,
+      "bottom": 134,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 2161,
+      "top": 63,
+      "right": 2256,
+      "bottom": 134,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 63,
+      "right": 2627,
+      "bottom": 134,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 63,
+      "right": 2924,
+      "bottom": 134,
+      "text": "8",
+      "lines": [
+        {
+          "text": "8",
+          "left": 2771,
+          "top": 100,
+          "right": 2785,
+          "bottom": 125
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 63,
+      "right": 3219,
+      "bottom": 134,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 63,
+      "right": 3514,
+      "bottom": 134,
+      "text": "10",
+      "lines": [
+        {
+          "text": "10",
+          "left": 3356,
+          "top": 99,
+          "right": 3382,
+          "bottom": 125
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 134,
+      "right": 543,
+      "bottom": 201,
+      "text": "8.10-9.00",
+      "lines": [
+        {
+          "text": "8.10-9.00",
+          "left": 337,
+          "top": 168,
+          "right": 457,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 543,
+      "top": 134,
+      "right": 839,
+      "bottom": 201,
+      "text": "A0N-9.5l",
+      "lines": [
+        {
+          "text": "A0N-9.5l",
+          "left": 627,
+          "top": 168,
+          "right": 754,
+          "bottom": 197
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 839,
+      "top": 134,
+      "right": 1134,
+      "bottom": 201,
+      "text": "9.50-10,40",
+      "lines": [
+        {
+          "text": "9.50-10,40",
+          "left": 920,
+          "top": 166,
+          "right": 1056,
+          "bottom": 195
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 134,
+      "right": 1502,
+      "bottom": 201,
+      "text": "10.40-11.30",
+      "lines": [
+        {
+          "text": "10.40-11.30",
+          "left": 1249,
+          "top": 168,
+          "right": 1391,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 134,
+      "right": 1798,
+      "bottom": 201,
+      "text": "11:30-12.20",
+      "lines": [
+        {
+          "text": "11:30-12.20",
+          "left": 1581,
+          "top": 168,
+          "right": 1723,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 134,
+      "right": 2161,
+      "bottom": 201,
+      "text": "12.20-1.10",
+      "lines": [
+        {
+          "text": "12.20-1.10",
+          "left": 1921,
+          "top": 168,
+          "right": 2047,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2161,
+      "top": 134,
+      "right": 2256,
+      "bottom": 201,
+      "text": "1.40",
+      "lines": [
+        {
+          "text": "1.40",
+          "left": 2187,
+          "top": 167,
+          "right": 2237,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 134,
+      "right": 2627,
+      "bottom": 201,
+      "text": "1.40-2.30",
+      "lines": [
+        {
+          "text": "1.40-2.30",
+          "left": 2386,
+          "top": 168,
+          "right": 2506,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 134,
+      "right": 2924,
+      "bottom": 201,
+      "text": "2.30-3.20",
+      "lines": [
+        {
+          "text": "2.30-3.20",
+          "left": 2715,
+          "top": 168,
+          "right": 2840,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 134,
+      "right": 3219,
+      "bottom": 201,
+      "text": "3.20-4.10",
+      "lines": [
+        {
+          "text": "3.20-4.10",
+          "left": 3013,
+          "top": 168,
+          "right": 3133,
+          "bottom": 194
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 134,
+      "right": 3514,
+      "bottom": 201,
+      "text": "4.10-5.00",
+      "lines": [
+        {
+          "text": "4.10-5.00",
+          "left": 3309,
+          "top": 166,
+          "right": 3427,
+          "bottom": 195
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 17,
+      "top": 201,
+      "right": 245,
+      "bottom": 410,
+      "text": "Monday",
+      "lines": [
+        {
+          "text": "Monday",
+          "left": 77,
+          "top": 289,
+          "right": 191,
+          "bottom": 321
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 201,
+      "right": 543,
+      "bottom": 272,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 543,
+      "top": 201,
+      "right": 839,
+      "bottom": 272,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 839,
+      "top": 201,
+      "right": 1134,
+      "bottom": 272,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 201,
+      "right": 1502,
+      "bottom": 272,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 201,
+      "right": 2161,
+      "bottom": 272,
+      "text": "Data Structures Lab Dr. Neha Agrawal 83T-\n832",
+      "lines": [
+        {
+          "text": "Data Structures Lab Dr. Neha Agrawal 83T-",
+          "left": 1546,
+          "top": 204,
+          "right": 2135,
+          "bottom": 232
+        },
+        {
+          "text": "832",
+          "left": 1811,
+          "top": 240,
+          "right": 1859,
+          "bottom": 266
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2161,
+      "top": 201,
+      "right": 2256,
+      "bottom": 1312,
+      "text": "LUN\nCH\nBRE\nAK",
+      "lines": [
+        {
+          "text": "LUN",
+          "left": 2178,
+          "top": 682,
+          "right": 2243,
+          "bottom": 709
+        },
+        {
+          "text": "CH",
+          "left": 2189,
+          "top": 724,
+          "right": 2235,
+          "bottom": 749
+        },
+        {
+          "text": "BRE",
+          "left": 2178,
+          "top": 765,
+          "right": 2245,
+          "bottom": 791
+        },
+        {
+          "text": "AK",
+          "left": 2189,
+          "top": 807,
+          "right": 2232,
+          "bottom": 832
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 201,
+      "right": 2627,
+      "bottom": 272,
+      "text": "Data Structures",
+      "lines": [
+        {
+          "text": "Data Structures",
+          "left": 2332,
+          "top": 219,
+          "right": 2553,
+          "bottom": 251
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 201,
+      "right": 2924,
+      "bottom": 272,
+      "text": "Digital Logic and\nComputer Design",
+      "lines": [
+        {
+          "text": "Digital Logic and",
+          "left": 2657,
+          "top": 205,
+          "right": 2898,
+          "bottom": 236
+        },
+        {
+          "text": "Computer Design",
+          "left": 2651,
+          "top": 243,
+          "right": 2901,
+          "bottom": 269
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 201,
+      "right": 3219,
+      "bottom": 272,
+      "text": "Discrete\nMathenmatics",
+      "lines": [
+        {
+          "text": "Discrete",
+          "left": 3011,
+          "top": 204,
+          "right": 3131,
+          "bottom": 230
+        },
+        {
+          "text": "Mathenmatics",
+          "left": 2983,
+          "top": 243,
+          "right": 3164,
+          "bottom": 269
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 201,
+      "right": 3514,
+      "bottom": 272,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 272,
+      "right": 543,
+      "bottom": 341,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 272,
+      "right": 839,
+      "bottom": 341,
+      "text": "NCCINSSSports",
+      "lines": [
+        {
+          "text": "NCCINSSSports",
+          "left": 575,
+          "top": 304,
+          "right": 811,
+          "bottom": 337
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 839,
+      "top": 272,
+      "right": 1134,
+      "bottom": 341,
+      "text": "NCCNSSISports",
+      "lines": [
+        {
+          "text": "NCCNSSISports",
+          "left": 871,
+          "top": 304,
+          "right": 1107,
+          "bottom": 337
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 272,
+      "right": 1502,
+      "bottom": 341,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 1502,
+      "top": 272,
+      "right": 2161,
+      "bottom": 341,
+      "text": "Data Structures Lab Dr. Meenu Garg 831-832",
+      "lines": [
+        {
+          "text": "Data Structures Lab Dr. Meenu Garg 831-832",
+          "left": 1518,
+          "top": 290,
+          "right": 2150,
+          "bottom": 321
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 272,
+      "right": 2627,
+      "bottom": 341,
+      "text": "812",
+      "lines": [
+        {
+          "text": "812",
+          "left": 2422,
+          "top": 290,
+          "right": 2464,
+          "bottom": 316
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 272,
+      "right": 2924,
+      "bottom": 341,
+      "text": "812",
+      "lines": [
+        {
+          "text": "812",
+          "left": 2756,
+          "top": 290,
+          "right": 2799,
+          "bottom": 316
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 272,
+      "right": 3219,
+      "bottom": 341,
+      "text": "812",
+      "lines": [
+        {
+          "text": "812",
+          "left": 3052,
+          "top": 290,
+          "right": 3095,
+          "bottom": 316
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 272,
+      "right": 3514,
+      "bottom": 341,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 341,
+      "right": 543,
+      "bottom": 410,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 341,
+      "right": 839,
+      "bottom": 410,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 341,
+      "right": 1134,
+      "bottom": 410,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 1134,
+      "top": 341,
+      "right": 1502,
+      "bottom": 410,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 1502,
+      "top": 341,
+      "right": 2161,
+      "bottom": 410,
+      "text": "Lomputational Methods Lab Dr. Surbh Lata\n831-832",
+      "lines": [
+        {
+          "text": "Lomputational Methods Lab Dr. Surbh Lata",
+          "left": 1520,
+          "top": 344,
+          "right": 2149,
+          "bottom": 371
+        },
+        {
+          "text": "831-832",
+          "left": 1783,
+          "top": 378,
+          "right": 1886,
+          "bottom": 404
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 341,
+      "right": 2627,
+      "bottom": 410,
+      "text": "Dr. Meenu Garg",
+      "lines": [
+        {
+          "text": "Dr. Meenu Garg",
+          "left": 2330,
+          "top": 354,
+          "right": 2559,
+          "bottom": 393
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 341,
+      "right": 2924,
+      "bottom": 410,
+      "text": "Ms. Abhilasha\nGokhale",
+      "lines": [
+        {
+          "text": "Ms. Abhilasha",
+          "left": 2673,
+          "top": 344,
+          "right": 2879,
+          "bottom": 368
+        },
+        {
+          "text": "Gokhale",
+          "left": 2714,
+          "top": 381,
+          "right": 2839,
+          "bottom": 407
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 341,
+      "right": 3219,
+      "bottom": 410,
+      "text": "Dr. Deepika Bansal",
+      "lines": [
+        {
+          "text": "Dr. Deepika Bansal",
+          "left": 2936,
+          "top": 356,
+          "right": 3205,
+          "bottom": 390
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 341,
+      "right": 3514,
+      "bottom": 410,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 17,
+      "top": 410,
+      "right": 245,
+      "bottom": 617,
+      "text": "Tuesday",
+      "lines": [
+        {
+          "text": "Tuesday",
+          "left": 71,
+          "top": 493,
+          "right": 196,
+          "bottom": 529
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 410,
+      "right": 543,
+      "bottom": 479,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 410,
+      "right": 839,
+      "bottom": 479,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 410,
+      "right": 1134,
+      "bottom": 479,
+      "text": "Ub|ect-Uriented\nPrograrnming",
+      "lines": [
+        {
+          "text": "Ub|ect-Uriented",
+          "left": 873,
+          "top": 413,
+          "right": 1101,
+          "bottom": 437
+        },
+        {
+          "text": "Prograrnming",
+          "left": 889,
+          "top": 442,
+          "right": 1088,
+          "bottom": 477
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 410,
+      "right": 1502,
+      "bottom": 479,
+      "text": "Discrete Mathernatics",
+      "lines": [
+        {
+          "text": "Discrete Mathernatics",
+          "left": 1166,
+          "top": 428,
+          "right": 1472,
+          "bottom": 454
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 410,
+      "right": 1798,
+      "bottom": 479,
+      "text": "Cormputational\nMethods",
+      "lines": [
+        {
+          "text": "Cormputational",
+          "left": 1548,
+          "top": 412,
+          "right": 1750,
+          "bottom": 444
+        },
+        {
+          "text": "Methods",
+          "left": 1589,
+          "top": 449,
+          "right": 1712,
+          "bottom": 478
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 410,
+      "right": 2161,
+      "bottom": 479,
+      "text": "Digital Logic and\nComputer Desian",
+      "lines": [
+        {
+          "text": "Digital Logic and",
+          "left": 1863,
+          "top": 412,
+          "right": 2104,
+          "bottom": 444
+        },
+        {
+          "text": "Computer Desian",
+          "left": 1858,
+          "top": 450,
+          "right": 2107,
+          "bottom": 476
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 410,
+      "right": 2924,
+      "bottom": 479,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 2924,
+      "top": 410,
+      "right": 3219,
+      "bottom": 479,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 410,
+      "right": 3514,
+      "bottom": 479,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 479,
+      "right": 543,
+      "bottom": 548,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 479,
+      "right": 839,
+      "bottom": 548,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 479,
+      "right": 1134,
+      "bottom": 548,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 965,
+          "top": 514,
+          "right": 1013,
+          "bottom": 540
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 479,
+      "right": 1502,
+      "bottom": 548,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1296,
+          "top": 497,
+          "right": 1344,
+          "bottom": 523
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 479,
+      "right": 1798,
+      "bottom": 548,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1628,
+          "top": 497,
+          "right": 1676,
+          "bottom": 523
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 479,
+      "right": 2161,
+      "bottom": 548,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1957,
+          "top": 497,
+          "right": 2005,
+          "bottom": 523
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 479,
+      "right": 2924,
+      "bottom": 548,
+      "text": "Lomputational Methods Lab Dr. Satishn\nVerma 821-822",
+      "lines": [
+        {
+          "text": "Lomputational Methods Lab Dr. Satishn",
+          "left": 2317,
+          "top": 482,
+          "right": 2868,
+          "bottom": 509
+        },
+        {
+          "text": "Verma 821-822",
+          "left": 2491,
+          "top": 516,
+          "right": 2697,
+          "bottom": 542
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 479,
+      "right": 3219,
+      "bottom": 548,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 479,
+      "right": 3514,
+      "bottom": 548,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 548,
+      "right": 543,
+      "bottom": 617,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 548,
+      "right": 839,
+      "bottom": 617,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 548,
+      "right": 1134,
+      "bottom": 617,
+      "text": "Dr. Bhaskar Kapoor",
+      "lines": [
+        {
+          "text": "Dr. Bhaskar Kapoor",
+          "left": 848,
+          "top": 562,
+          "right": 1126,
+          "bottom": 598
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 548,
+      "right": 1502,
+      "bottom": 617,
+      "text": "Dr. Deepika Bansal",
+      "lines": [
+        {
+          "text": "Dr. Deepika Bansal",
+          "left": 1183,
+          "top": 566,
+          "right": 1451,
+          "bottom": 598
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 548,
+      "right": 1798,
+      "bottom": 617,
+      "text": "Dr. Satish Verma",
+      "lines": [
+        {
+          "text": "Dr. Satish Verma",
+          "left": 1531,
+          "top": 566,
+          "right": 1773,
+          "bottom": 592
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 548,
+      "right": 2161,
+      "bottom": 617,
+      "text": "Ms. Abhilasha Gokhale",
+      "lines": [
+        {
+          "text": "Ms. Abhilasha Gokhale",
+          "left": 1816,
+          "top": 566,
+          "right": 2149,
+          "bottom": 592
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 548,
+      "right": 2924,
+      "bottom": 617,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 2924,
+      "top": 548,
+      "right": 3219,
+      "bottom": 617,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 548,
+      "right": 3514,
+      "bottom": 617,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 17,
+      "top": 617,
+      "right": 245,
+      "bottom": 869,
+      "text": "Wednesday",
+      "lines": [
+        {
+          "text": "Wednesday",
+          "left": 46,
+          "top": 724,
+          "right": 219,
+          "bottom": 757
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 617,
+      "right": 543,
+      "bottom": 731,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 617,
+      "right": 839,
+      "bottom": 731,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 617,
+      "right": 1134,
+      "bottom": 731,
+      "text": "Data Structures",
+      "lines": [
+        {
+          "text": "Data Structures",
+          "left": 879,
+          "top": 657,
+          "right": 1098,
+          "bottom": 683
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 617,
+      "right": 1502,
+      "bottom": 731,
+      "text": "Discrete Mathenatics",
+      "lines": [
+        {
+          "text": "Discrete Mathenatics",
+          "left": 1166,
+          "top": 657,
+          "right": 1472,
+          "bottom": 683
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 617,
+      "right": 1798,
+      "bottom": 731,
+      "text": "Object-Oriented\nProgranrning\nusing C++",
+      "lines": [
+        {
+          "text": "Object-Oriented",
+          "left": 1537,
+          "top": 622,
+          "right": 1765,
+          "bottom": 653
+        },
+        {
+          "text": "Progranrning",
+          "left": 1554,
+          "top": 660,
+          "right": 1751,
+          "bottom": 692
+        },
+        {
+          "text": "using C++",
+          "left": 1589,
+          "top": 698,
+          "right": 1723,
+          "bottom": 731
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 617,
+      "right": 2161,
+      "bottom": 731,
+      "text": "Digital Logic and\nCornputer Design",
+      "lines": [
+        {
+          "text": "Digital Logic and",
+          "left": 1863,
+          "top": 638,
+          "right": 2105,
+          "bottom": 669
+        },
+        {
+          "text": "Cornputer Design",
+          "left": 1858,
+          "top": 677,
+          "right": 2108,
+          "bottom": 708
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 617,
+      "right": 2627,
+      "bottom": 731,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 2627,
+      "top": 617,
+      "right": 2924,
+      "bottom": 731,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 2924,
+      "top": 617,
+      "right": 3219,
+      "bottom": 731,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 617,
+      "right": 3514,
+      "bottom": 731,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 731,
+      "right": 543,
+      "bottom": 800,
+      "text": "NCCINSSSports",
+      "lines": [
+        {
+          "text": "NCCINSSSports",
+          "left": 279,
+          "top": 764,
+          "right": 515,
+          "bottom": 798
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 543,
+      "top": 731,
+      "right": 839,
+      "bottom": 800,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 731,
+      "right": 1134,
+      "bottom": 800,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 964,
+          "top": 749,
+          "right": 1013,
+          "bottom": 775
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 731,
+      "right": 1502,
+      "bottom": 800,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1296,
+          "top": 749,
+          "right": 1344,
+          "bottom": 775
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 731,
+      "right": 1798,
+      "bottom": 800,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1628,
+          "top": 749,
+          "right": 1676,
+          "bottom": 775
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 731,
+      "right": 2161,
+      "bottom": 800,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1957,
+          "top": 749,
+          "right": 2005,
+          "bottom": 775
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 731,
+      "right": 2627,
+      "bottom": 800,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 2627,
+      "top": 731,
+      "right": 2924,
+      "bottom": 800,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 2924,
+      "top": 731,
+      "right": 3219,
+      "bottom": 800,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 731,
+      "right": 3514,
+      "bottom": 800,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 800,
+      "right": 543,
+      "bottom": 869,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 800,
+      "right": 839,
+      "bottom": 869,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 800,
+      "right": 1134,
+      "bottom": 869,
+      "text": "Dr. Meernu Garg",
+      "lines": [
+        {
+          "text": "Dr. Meernu Garg",
+          "left": 873,
+          "top": 815,
+          "right": 1101,
+          "bottom": 849
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 800,
+      "right": 1502,
+      "bottom": 869,
+      "text": "Dr. Deepika Bansal",
+      "lines": [
+        {
+          "text": "Dr. Deepika Bansal",
+          "left": 1183,
+          "top": 815,
+          "right": 1449,
+          "bottom": 850
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 800,
+      "right": 1798,
+      "bottom": 869,
+      "text": "Dr. Bhaskar Kapoor",
+      "lines": [
+        {
+          "text": "Dr. Bhaskar Kapoor",
+          "left": 1511,
+          "top": 814,
+          "right": 1790,
+          "bottom": 850
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 800,
+      "right": 2161,
+      "bottom": 869,
+      "text": "Ms. Abhilasha Gokhale",
+      "lines": [
+        {
+          "text": "Ms. Abhilasha Gokhale",
+          "left": 1833,
+          "top": 815,
+          "right": 2149,
+          "bottom": 849
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 800,
+      "right": 2627,
+      "bottom": 869,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 800,
+      "right": 2924,
+      "bottom": 869,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 800,
+      "right": 3219,
+      "bottom": 869,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 800,
+      "right": 3514,
+      "bottom": 869,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 17,
+      "top": 869,
+      "right": 245,
+      "bottom": 1107,
+      "text": "Thursday",
+      "lines": [
+        {
+          "text": "Thursday",
+          "left": 63,
+          "top": 967,
+          "right": 202,
+          "bottom": 1001
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 869,
+      "right": 543,
+      "bottom": 938,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 869,
+      "right": 839,
+      "bottom": 938,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 869,
+      "right": 1134,
+      "bottom": 938,
+      "text": "Lomputational vle\nKaus",
+      "lines": [
+        {
+          "text": "Lomputational vle",
+          "left": 879,
+          "top": 871,
+          "right": 1138,
+          "bottom": 900
+        },
+        {
+          "text": "Kaus",
+          "left": 1054,
+          "top": 905,
+          "right": 1129,
+          "bottom": 936
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 869,
+      "right": 1502,
+      "bottom": 938,
+      "text": "thods Lab Dr.Narender\nik 831-832",
+      "lines": [
+        {
+          "text": "thods Lab Dr.Narender",
+          "left": 1143,
+          "top": 872,
+          "right": 1463,
+          "bottom": 894
+        },
+        {
+          "text": "ik 831-832",
+          "left": 1145,
+          "top": 906,
+          "right": 1286,
+          "bottom": 932
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 869,
+      "right": 1798,
+      "bottom": 938,
+      "text": "Digital Logic and\nComputer Desian",
+      "lines": [
+        {
+          "text": "Digital Logic and",
+          "left": 1531,
+          "top": 872,
+          "right": 1773,
+          "bottom": 902
+        },
+        {
+          "text": "Computer Desian",
+          "left": 1526,
+          "top": 909,
+          "right": 1776,
+          "bottom": 935
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 869,
+      "right": 2161,
+      "bottom": 938,
+      "text": "Computational Methods",
+      "lines": [
+        {
+          "text": "Computational Methods",
+          "left": 1813,
+          "top": 887,
+          "right": 2149,
+          "bottom": 918
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 869,
+      "right": 2924,
+      "bottom": 938,
+      "text": "Ubject-Uriented Prograrnming usIing ++\nLab Dr. Bhaskar Kapoor 821-822",
+      "lines": [
+        {
+          "text": "Ubject-Uriented Prograrnming usIing ++",
+          "left": 2295,
+          "top": 872,
+          "right": 2887,
+          "bottom": 899
+        },
+        {
+          "text": "Lab Dr. Bhaskar Kapoor 821-822",
+          "left": 2366,
+          "top": 906,
+          "right": 2821,
+          "bottom": 935
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 869,
+      "right": 3219,
+      "bottom": 938,
+      "text": "Data Structures",
+      "lines": [
+        {
+          "text": "Data Structures",
+          "left": 2964,
+          "top": 886,
+          "right": 3181,
+          "bottom": 915
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 869,
+      "right": 3514,
+      "bottom": 938,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 938,
+      "right": 543,
+      "bottom": 1007,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 938,
+      "right": 839,
+      "bottom": 1007,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 938,
+      "right": 1502,
+      "bottom": 1007,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 1502,
+      "top": 938,
+      "right": 1798,
+      "bottom": 1007,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1628,
+          "top": 956,
+          "right": 1676,
+          "bottom": 982
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 938,
+      "right": 2161,
+      "bottom": 1007,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1957,
+          "top": 956,
+          "right": 2005,
+          "bottom": 982
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 938,
+      "right": 2627,
+      "bottom": 1007,
+      "text": "Ubject-Uriented Progra\nLab Ajay Kaus",
+      "lines": [
+        {
+          "text": "Ubject-Uriented Progra",
+          "left": 2294,
+          "top": 941,
+          "right": 2626,
+          "bottom": 971
+        },
+        {
+          "text": "Lab Ajay Kaus",
+          "left": 2405,
+          "top": 975,
+          "right": 2616,
+          "bottom": 1004
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 938,
+      "right": 2924,
+      "bottom": 1007,
+      "text": "mrning USing Lt+\nik 821-822",
+      "lines": [
+        {
+          "text": "mrning USing Lt+",
+          "left": 2636,
+          "top": 942,
+          "right": 2887,
+          "bottom": 968
+        },
+        {
+          "text": "ik 821-822",
+          "left": 2638,
+          "top": 975,
+          "right": 2779,
+          "bottom": 1001
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 938,
+      "right": 3219,
+      "bottom": 1007,
+      "text": "812",
+      "lines": [
+        {
+          "text": "812",
+          "left": 3052,
+          "top": 956,
+          "right": 3095,
+          "bottom": 982
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 938,
+      "right": 3514,
+      "bottom": 1007,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 1007,
+      "right": 543,
+      "bottom": 1107,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 1007,
+      "right": 839,
+      "bottom": 1107,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 1007,
+      "right": 1502,
+      "bottom": 1107,
+      "text": "Object-Oriented Prograrnming using C++\nLab Dr. Neha Singh 831-832",
+      "lines": [
+        {
+          "text": "Object-Oriented Prograrnming using C++",
+          "left": 873,
+          "top": 1019,
+          "right": 1466,
+          "bottom": 1051
+        },
+        {
+          "text": "Lab Dr. Neha Singh 831-832",
+          "left": 973,
+          "top": 1058,
+          "right": 1368,
+          "bottom": 1090
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 1007,
+      "right": 1798,
+      "bottom": 1107,
+      "text": "Ms. Abhilasha\nGokhale",
+      "lines": [
+        {
+          "text": "Ms. Abhilasha",
+          "left": 1548,
+          "top": 1022,
+          "right": 1754,
+          "bottom": 1048
+        },
+        {
+          "text": "Gokhale",
+          "left": 1592,
+          "top": 1061,
+          "right": 1710,
+          "bottom": 1087
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 1007,
+      "right": 2161,
+      "bottom": 1107,
+      "text": "Dr. Satish Verma",
+      "lines": [
+        {
+          "text": "Dr. Satish Verma",
+          "left": 1860,
+          "top": 1042,
+          "right": 2102,
+          "bottom": 1068
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 1007,
+      "right": 2924,
+      "bottom": 1107,
+      "text": "Data Structures Lab Dr. Meenu Garg 821-822",
+      "lines": [
+        {
+          "text": "Data Structures Lab Dr. Meenu Garg 821-822",
+          "left": 2275,
+          "top": 1039,
+          "right": 2909,
+          "bottom": 1070
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 1007,
+      "right": 3219,
+      "bottom": 1107,
+      "text": "Dr. Meenu Garg",
+      "lines": [
+        {
+          "text": "Dr. Meenu Garg",
+          "left": 2957,
+          "top": 1038,
+          "right": 3186,
+          "bottom": 1073
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 1007,
+      "right": 3514,
+      "bottom": 1107,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 17,
+      "top": 1107,
+      "right": 245,
+      "bottom": 1312,
+      "text": "Friday",
+      "lines": [
+        {
+          "text": "Friday",
+          "left": 87,
+          "top": 1192,
+          "right": 177,
+          "bottom": 1225
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 245,
+      "top": 1107,
+      "right": 543,
+      "bottom": 1176,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 1107,
+      "right": 839,
+      "bottom": 1176,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 1107,
+      "right": 1134,
+      "bottom": 1176,
+      "text": "Data Structures",
+      "lines": [
+        {
+          "text": "Data Structures",
+          "left": 879,
+          "top": 1124,
+          "right": 1097,
+          "bottom": 1152
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 1107,
+      "right": 1502,
+      "bottom": 1176,
+      "text": "Object-Uriented\nPrograrnming using",
+      "lines": [
+        {
+          "text": "Object-Uriented",
+          "left": 1205,
+          "top": 1110,
+          "right": 1433,
+          "bottom": 1140
+        },
+        {
+          "text": "Prograrnming using",
+          "left": 1197,
+          "top": 1147,
+          "right": 1463,
+          "bottom": 1173
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 1107,
+      "right": 1798,
+      "bottom": 1176,
+      "text": "Conputational\nMMethods",
+      "lines": [
+        {
+          "text": "Conputational",
+          "left": 1548,
+          "top": 1110,
+          "right": 1751,
+          "bottom": 1139
+        },
+        {
+          "text": "MMethods",
+          "left": 1590,
+          "top": 1147,
+          "right": 1712,
+          "bottom": 1173
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 1107,
+      "right": 2161,
+      "bottom": 1176,
+      "text": "Discrete Mathernatics",
+      "lines": [
+        {
+          "text": "Discrete Mathernatics",
+          "left": 1830,
+          "top": 1125,
+          "right": 2135,
+          "bottom": 1151
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 1107,
+      "right": 2627,
+      "bottom": 1176,
+      "text": "Digital Logic ard Lorn\n427 Ms. Abhilas",
+      "lines": [
+        {
+          "text": "Digital Logic ard Lorn",
+          "left": 2326,
+          "top": 1110,
+          "right": 2617,
+          "bottom": 1138
+        },
+        {
+          "text": "427 Ms. Abhilas",
+          "left": 2397,
+          "top": 1144,
+          "right": 2616,
+          "bottom": 1170
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 1107,
+      "right": 2924,
+      "bottom": 1176,
+      "text": "Juter Design Lab\nna Gokhale",
+      "lines": [
+        {
+          "text": "Juter Design Lab",
+          "left": 2637,
+          "top": 1110,
+          "right": 2873,
+          "bottom": 1137
+        },
+        {
+          "text": "na Gokhale",
+          "left": 2638,
+          "top": 1144,
+          "right": 2788,
+          "bottom": 1170
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 1107,
+      "right": 3219,
+      "bottom": 1176,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 1107,
+      "right": 3514,
+      "bottom": 1176,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 1176,
+      "right": 543,
+      "bottom": 1245,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 1176,
+      "right": 839,
+      "bottom": 1245,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 1176,
+      "right": 1134,
+      "bottom": 1245,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 965,
+          "top": 1194,
+          "right": 1013,
+          "bottom": 1220
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 1176,
+      "right": 1502,
+      "bottom": 1245,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1296,
+          "top": 1194,
+          "right": 1343,
+          "bottom": 1220
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 1176,
+      "right": 1798,
+      "bottom": 1245,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1628,
+          "top": 1194,
+          "right": 1676,
+          "bottom": 1220
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 1176,
+      "right": 2161,
+      "bottom": 1245,
+      "text": "843",
+      "lines": [
+        {
+          "text": "843",
+          "left": 1957,
+          "top": 1194,
+          "right": 2005,
+          "bottom": 1220
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 1176,
+      "right": 2627,
+      "bottom": 1245,
+      "text": "Digital Logic and Lom\n434 Mir. Rohit LIc",
+      "lines": [
+        {
+          "text": "Digital Logic and Lom",
+          "left": 2308,
+          "top": 1179,
+          "right": 2617,
+          "bottom": 1206
+        },
+        {
+          "text": "434 Mir. Rohit LIc",
+          "left": 2391,
+          "top": 1210,
+          "right": 2627,
+          "bottom": 1242
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2627,
+      "top": 1176,
+      "right": 2924,
+      "bottom": 1245,
+      "text": "Juter Design Lab\nay Lakhane",
+      "lines": [
+        {
+          "text": "Juter Design Lab",
+          "left": 2637,
+          "top": 1179,
+          "right": 2873,
+          "bottom": 1206
+        },
+        {
+          "text": "ay Lakhane",
+          "left": 2639,
+          "top": 1213,
+          "right": 2793,
+          "bottom": 1242
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 1176,
+      "right": 3219,
+      "bottom": 1245,
+      "text": "Library",
+      "lines": [
+        {
+          "text": "Library",
+          "left": 3022,
+          "top": 1193,
+          "right": 3122,
+          "bottom": 1225
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 3219,
+      "top": 1176,
+      "right": 3514,
+      "bottom": 1245,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 245,
+      "top": 1245,
+      "right": 543,
+      "bottom": 1312,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 543,
+      "top": 1245,
+      "right": 839,
+      "bottom": 1312,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 839,
+      "top": 1245,
+      "right": 1134,
+      "bottom": 1312,
+      "text": "Dr. Meernu Garg",
+      "lines": [
+        {
+          "text": "Dr. Meernu Garg",
+          "left": 872,
+          "top": 1259,
+          "right": 1102,
+          "bottom": 1294
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1134,
+      "top": 1245,
+      "right": 1502,
+      "bottom": 1312,
+      "text": "Dr. Bhaskar Kapoor",
+      "lines": [
+        {
+          "text": "Dr. Bhaskar Kapoor",
+          "left": 1179,
+          "top": 1259,
+          "right": 1456,
+          "bottom": 1295
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1502,
+      "top": 1245,
+      "right": 1798,
+      "bottom": 1312,
+      "text": "Dr. Satish Verma",
+      "lines": [
+        {
+          "text": "Dr. Satish Verma",
+          "left": 1531,
+          "top": 1263,
+          "right": 1773,
+          "bottom": 1289
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 1798,
+      "top": 1245,
+      "right": 2161,
+      "bottom": 1312,
+      "text": "Dr. Deepika Bansal",
+      "lines": [
+        {
+          "text": "Dr. Deepika Bansal",
+          "left": 1846,
+          "top": 1263,
+          "right": 2116,
+          "bottom": 1294
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2256,
+      "top": 1245,
+      "right": 2924,
+      "bottom": 1312,
+      "text": "Digital Logic and Lomputer Design Lab\n433 Dr. Neeraj",
+      "lines": [
+        {
+          "text": "Digital Logic and Lomputer Design Lab",
+          "left": 2329,
+          "top": 1248,
+          "right": 2872,
+          "bottom": 1277
+        },
+        {
+          "text": "433 Dr. Neeraj",
+          "left": 2494,
+          "top": 1280,
+          "right": 2687,
+          "bottom": 1312
+        }
+      ],
+      "hasInk": true
+    },
+    {
+      "left": 2924,
+      "top": 1245,
+      "right": 3219,
+      "bottom": 1312,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 3219,
+      "top": 1245,
+      "right": 3514,
+      "bottom": 1312,
+      "text": "",
+      "lines": [],
+      "hasInk": false
+    },
+    {
+      "left": 17,
+      "top": 1312,
+      "right": 3514,
+      "bottom": 1359,
+      "text": "",
+      "lines": [],
+      "hasInk": true
+    }
+  ]
+}
