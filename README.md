@@ -1,5 +1,7 @@
 # My Personal Assistant
 
+[![CI](https://github.com/devanshmalik-13/Yojak-My-Personal-Assistant/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/devanshmalik-13/Yojak-My-Personal-Assistant/actions/workflows/ci.yml)
+
 A private, offline-first personal assistant for students. The current version uses no cloud backend and sends no personal data to a server.
 
 ## Local backend
